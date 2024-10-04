@@ -1,0 +1,13 @@
+html, body, #root, .map-container {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.map-container {
+  position: relative;
+}
+
+.offcanvas {
+  background-color: #f8f9fa;
+}
