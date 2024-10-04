@@ -1,10 +1,9 @@
 import React from 'react';
-import './About.css';
-
+import './About.css'; 
 
 function About() {
   return (
-    <div style={{ padding: '20px' }}>
+    <div className="about-container"> 
       <h2>Acerca de Nosotros</h2>
       <h3>Acerca del Proyecto</h3>
       <p>Somos un grupo comprometido con la mejora de los métodos de censo de árboles para el GAC (Grupo de Acción Comunitaria). Nuestro sistema está diseñado para censar y monitorizar los árboles de forma eficiente, comenzando con los ubicados en Univalle Tiquipaya...</p>

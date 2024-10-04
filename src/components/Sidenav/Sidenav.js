@@ -1,9 +1,10 @@
 import React from 'react';
 import { Offcanvas } from 'react-bootstrap';
+import './Sidenav.css';  // Importa el nuevo archivo CSS
 
 function Sidenav({ tree, onClose }) {
   return (
-    <Offcanvas show={true} onHide={onClose} placement="start"> {}
+    <Offcanvas className="sidenav-custom" show={true} onHide={onClose} placement="start">
       <Offcanvas.Header closeButton>
         <Offcanvas.Title>{tree.name}</Offcanvas.Title>
       </Offcanvas.Header>

@@ -1,10 +1,11 @@
 import React from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import './Navbar.css';  // Importar el archivo CSS
 
 function NavigationBar() {
   return (
-    <Navbar bg="dark" variant="dark" expand="lg">
+    <Navbar className="navbar-custom" expand="lg"> {/* Clase personalizada */}
       <Navbar.Brand href="#home">
         <img
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/NYC_Parks.svg/1200px-NYC_Parks.svg.png"
