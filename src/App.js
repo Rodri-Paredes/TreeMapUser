@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
-import Navbar from './components/Navbar';
-import Sidenav from './components/Sidenav';
+import Navbar from './components/Navbar/Navbar';
+import Sidenav from './components/Sidenav/Sidenav';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Routes, Route } from 'react-router-dom';
-import About from './components/About';
+import About from './components/About/About';
 
 const mapContainerStyle = {
   width: '100vw',
