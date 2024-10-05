@@ -1,36 +1,39 @@
-/* Navbar.css */
 .navbar-custom {
-    background-color: #2c3e50; /* Fondo oscuro personalizado */
+    background-color: #267e3f; /* Fondo oscuro personalizado */
     padding: 10px 20px; /* Espaciado extra */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil */
-  }
-  
-  .navbar-custom .navbar-brand {
+}
+
+.navbar-custom .navbar-brand {
     font-size: 24px;
     color: #ecf0f1; /* Color claro para el texto */
     font-weight: bold;
-  }
-  
-  .navbar-custom .navbar-brand img {
+}
+
+/* Clase personalizada para el logo */
+.navbar-logo {
     margin-right: 10px; /* Espacio entre el logo y el texto */
-  }
-  
-  .navbar-custom .nav-link {
+    border-radius: 50%; /* Convertir la imagen en circular */
+    border: 2px solid #ecf0f1; /* Agregar un borde alrededor del logo */
+    width: 40px; /* Ajustar el tamaño */
+    height: 40px; /* Asegurarse que el logo es circular */
+}
+
+.navbar-custom .nav-link {
     color: #bdc3c7; /* Color de los enlaces */
     font-size: 18px;
     padding-right: 15px; /* Espaciado entre enlaces */
     transition: color 0.3s ease; /* Transición suave */
-  }
-  
-  .navbar-custom .nav-link:hover {
+}
+
+.navbar-custom .nav-link:hover {
     color: #ffffff; /* Color al pasar el mouse por encima */
-  }
-  
-  .navbar-custom .navbar-toggler-icon {
+}
+
+.navbar-custom .navbar-toggler-icon {
     color: #ecf0f1; /* Color claro para el ícono del menú */
-  }
-  
-  .navbar-custom .navbar-collapse {
+}
+
+.navbar-custom .navbar-collapse {
     justify-content: flex-end; /* Alineación a la derecha */
-  }
-  
+}

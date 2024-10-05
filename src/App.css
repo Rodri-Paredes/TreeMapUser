@@ -1,38 +1,50 @@
-.App {
-  text-align: center;
-}
+/* App.css */
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Asegura que el body y html ocupen toda la pantalla */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+/* Asegura que el contenedor principal ocupe el 100% */
+#root {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Contenedor del mapa para que ocupe el espacio disponible sin afectar el footer */
+.map-container {
+  flex-grow: 1;
+  height: auto; /* Deja que el contenedor crezca naturalmente */
+}
+
+/* Asegúrate de que las estadísticas estén bien alineadas */
+.statistics-container {
+  text-align: center;
+  padding: 20px;
+  background-color: #ecf0f1;
+  
+  
+  
+}
+
+
+.footer {
+  background-color: #267e3f; /* Mismo color que el navbar */
+  color: #ecf0f1; /* Color del texto en el footer */
+  padding: 10px 20px;
+  text-align: center;
+  box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera en la parte superior */
+  width: 100%;
+  margin-top: auto; /* Asegura que el footer se quede en la parte inferior */
 }

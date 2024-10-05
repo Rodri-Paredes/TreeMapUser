@@ -2,17 +2,16 @@ import React from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './Navbar.css';  // Importar el archivo CSS
+import logo from './logoTreeMap.png';  // Importa el logo desde la carpeta actual
 
 function NavigationBar() {
   return (
     <Navbar className="navbar-custom" expand="lg"> {/* Clase personalizada */}
       <Navbar.Brand href="#home">
         <img
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/NYC_Parks.svg/1200px-NYC_Parks.svg.png"
+          src={logo}  // Usar el logo importado desde el archivo local
           alt="Logo"
-          width="30"
-          height="30"
-          className="d-inline-block align-top"
+          className="navbar-logo"  // Aplicar la clase personalizada para el logo
         />
         {' TreeMap NYC'}
       </Navbar.Brand>
