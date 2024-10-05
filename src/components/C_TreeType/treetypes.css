@@ -1,0 +1,111 @@
+/* Estilos del carrusel */
+.carousel-item img {
+    filter: brightness(0.5); /* Aclara las imágenes del carrusel */
+    height: 100vh; /* Asegura que el carrusel ocupe toda la altura de la ventana */
+}
+
+/* Estilo del carrusel */
+.carousel {
+    position: relative; /* Asegura que el carrusel esté en el flujo del documento */
+    z-index: -1; /* Coloca el carrusel detrás de otros elementos */
+}
+
+/* Superposición sobre el carrusel */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.5); /* Fondo blanco semitransparente */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10; /* Asegura que la superposición esté en la parte superior */
+    padding: 20px; /* Espaciado dentro de la superposición */
+}
+
+.welcome-description {
+    font-size: 16px;
+    color: #ffffff; /* Azul oscuro */
+    margin-bottom: 20px; /* Espacio inferior */
+}
+
+/* Estilos para los elementos de la lista de tipos de árbol */
+.list-group-item {
+    display: flex; /* Usar flexbox para alinear los elementos */
+    align-items: center; /* Alinear verticalmente */
+    padding: 15px; /* Espaciado */
+    margin-bottom: 10px; /* Espacio inferior entre elementos */
+    color: #ffffff; /* Texto negro para cada elemento de la lista */
+}
+
+.image-container {
+    display: flex;
+    justify-content: center; /* Centra la imagen horizontalmente */
+    flex: 1; /* Permite que el contenedor de la imagen ocupe el espacio disponible */
+}
+
+.tree-image {
+    width: 80px; /* Ajusta el tamaño según necesites */
+    height: 80px; /* Ajusta el tamaño según necesites */
+    object-fit: cover; /* Asegura que la imagen mantenga su proporción */
+}
+
+/* Colores para los tipos de árbol */
+.green {
+    background-color: rgba(36, 150, 40, 0.719); /* Verde claro */
+}
+
+.brown {
+    background-color: rgba(139, 69, 19, 0.719); /* Marrón claro */
+}
+
+.blue {
+    background-color: rgba(70, 130, 180, 0.719); /* Azul claro */
+}
+.pink {
+    background-color: rgba(197, 59, 112, 0.719); /* Azul claro */
+}
+.yellow
+{
+    background-color: rgba(255, 170, 43, 0.719);
+}
+
+
+/* Asegurar que el texto en las tarjetas sea negro */
+.card {
+    color: #ffffff; /* Texto negro para las tarjetas */
+}
+
+/* Estilos para el texto dentro de las tarjetas */
+.card-title {
+    font-size: 1.25rem; /* Tamaño de fuente para el título de la tarjeta */
+    margin-bottom: 10px; /* Espacio inferior del título */
+}
+
+.card-text {
+    font-size: 0.9rem; /* Tamaño de fuente para el texto de la tarjeta */
+}
+
+/* Espaciado adicional para las tarjetas */
+.card-body {
+    padding: 15px; /* Espaciado interior en las tarjetas */
+}
+h2{
+    color: #ffffff;
+}
+.card-img-top {
+    transition: transform 0.3s, box-shadow 0.3s; /* Animación de transformación y sombra */
+    object-fit: contain;
+}
+
+.card-img-top:hover {
+    transform: scale(1.1); /* Zoom de 10% */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); /* Sombra al pasar el ratón */
+}
+.modal-content {
+    border-radius: 0.5rem;
+    z-index: 20; 
+}

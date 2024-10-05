@@ -1,5 +1,5 @@
 .navbar-custom {
-    background-color: #267e3f; /* Fondo oscuro personalizado */
+    background-color: #267e3f; /* Fondo oscuro personalizado (tomado del segundo código) */
     padding: 10px 20px; /* Espaciado extra */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil */
 }
@@ -8,6 +8,10 @@
     font-size: 24px;
     color: #ecf0f1; /* Color claro para el texto */
     font-weight: bold;
+}
+
+.navbar-custom .navbar-brand img {
+    margin-right: 10px; /* Espacio entre el logo y el texto */
 }
 
 /* Clase personalizada para el logo */

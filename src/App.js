@@ -5,6 +5,7 @@ import Sidenav from './components/C_Sidenav/Sidenav';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Routes, Route } from 'react-router-dom';
 import About from './components/C_About/About';
+import TreeType from './components/C_TreeType/treetype';  // Importa el componente TreeType
 import './App.css';  // Importar los estilos globales
 
 // Estilos para el contenedor del mapa
@@ -20,7 +21,6 @@ const center = {
 };
 
 // Datos de ejemplo de los árboles que se van a mostrar en el mapa
-
 const treesData = [
   {
     id: 1,
@@ -30,12 +30,12 @@ const treesData = [
     species: 'Maple',
     description: 'A large, strong tree known for its longevity.',
     estimatedLife: '150 years',
-    diameter: 45, // Mantengo el valor mayor de los dos
-    foliage: 'Dense green foliage', // Combino este dato con el anterior
-    sector: 'North Park', // Mantengo este sector
-    polygon: 'Polygon 1', // Mantengo este polígono
-    censusDate: '2022-10-01', // Combino la fecha más reciente
-    imageUrl: 'https://example.com/oak-tree.jpg', // URL de la imagen
+    diameter: 45,
+    foliage: 'Dense green foliage',
+    sector: 'North Park',
+    polygon: 'Polygon 1',
+    censusDate: '2022-10-01',
+    imageUrl: 'https://example.com/oak-tree.jpg',
   },
   {
     id: 2,
@@ -45,12 +45,12 @@ const treesData = [
     species: 'Oak',
     description: 'A large, strong tree known for its longevity.',
     estimatedLife: '150 years',
-    diameter: 50, // Mantengo el valor más reciente
-    foliage: 'Sparse foliage', // Utilizo esta descripción más precisa
+    diameter: 50,
+    foliage: 'Sparse foliage',
     sector: 'Central Park',
-    polygon: 'Polygon 2', // Utilizo esta información
-    censusDate: '2021-12-15', // Mantengo esta fecha
-    imageUrl: 'https://example.com/oak-tree3.jpg', // URL de la imagen del árbol
+    polygon: 'Polygon 2',
+    censusDate: '2021-12-15',
+    imageUrl: 'https://example.com/oak-tree3.jpg',
   },
   {
     id: 3,
@@ -60,17 +60,14 @@ const treesData = [
     species: 'Maraco',
     description: 'A large, strong tree known for its longevity.',
     estimatedLife: '50 years',
-    diameter: 35, // Mantengo el valor más alto
-    foliage: 'Medium foliage', // Utilizo esta descripción
+    diameter: 35,
+    foliage: 'Medium foliage',
     sector: 'South Park',
     polygon: 'Polygon 3',
-    censusDate: '2020-11-25', // Mantengo esta fecha
-    imageUrl: 'https://example.com/maraco.jpg', // URL de la imagen
-  }
+    censusDate: '2020-11-25',
+    imageUrl: 'https://example.com/maraco.jpg',
+  },
 ];
-
-
-
 
 // Función para obtener el icono del marcador basado en la especie y tamaño
 function getMarkerIcon(tree) {
@@ -169,6 +166,7 @@ function App() {
             </>
           } />
           <Route path="/about" element={<About />} />  {/* Ruta para la página About */}
+          <Route path="/treetype" element={<TreeType />} /> {/* Nueva ruta para Tree Type */}
         </Routes>
       </div>
     </>
