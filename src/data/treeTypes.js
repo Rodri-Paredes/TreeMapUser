@@ -1,75 +1,99 @@
 const treeTypes = [
     {
-        name: 'Pino',
         description: 'Los pinos son árboles de hoja perenne que pertenecen a la familia de las coníferas. Son conocidos por su altura y su corteza característica.',
-        className: 'green',
-        image: '/images/pine.jpg'
+        color: '#88B04B',
+        commonName: 'Pino',
+        foliage: 'Perenne',
+        scientificName: 'Pinus',
+        imageUrl: 'https://firebasestorage.googleapis.com/v0/b/tree-map-ae44c.appspot.com/o/species%2FWhitebarkPine_7467t.jpg?alt=media&token=fc1e504c-81c5-4dbb-ad98-3a95aa6f9f51'
     },
     {
-        name: 'Roble',
         description: 'Los robles son árboles de hoja caduca que pueden vivir cientos de años. Su madera es muy valorada por su dureza y resistencia.',
-        className: 'brown',
-        image: '/images/oak.jpg'
+        color: '#B565A7',
+        commonName: 'Roble',
+        foliage: 'Caducifolio',
+        scientificName: 'Quercus',
+        imageUrl: 'https://firebasestorage.googleapis.com/v0/b/tree-map-ae44c.appspot.com/o/species%2FWhitebarkPine_7467t.jpg?alt=media&token=fc1e504c-81c5-4dbb-ad98-3a95aa6f9f51'
     },
     {
-        name: 'Sauce',
         description: 'Los sauces son conocidos por sus ramas largas y flexibles. A menudo se encuentran cerca de cuerpos de agua.',
-        className: 'green',
-        image: '/images/willow.jpg'
+        color: '#92A8D1',
+        commonName: 'Sauce',
+        foliage: 'Caducifolio',
+        scientificName: 'Salix',
+        imageUrl: 'https://firebasestorage.googleapis.com/v0/b/tree-map-ae44c.appspot.com/o/species%2FWhitebarkPine_7467t.jpg?alt=media&token=fc1e504c-81c5-4dbb-ad98-3a95aa6f9f51'
     },
     {
-        name: 'Abeto',
         description: 'Los abetos son árboles perennes que se utilizan comúnmente como árboles de Navidad. Tienen agujas cortas y un aroma agradable.',
-        className: 'green',
-        image: '/images/fir.jpg'
+        color: '#5B5EA6',
+        commonName: 'Abeto',
+        foliage: 'Perenne',
+        scientificName: 'Abies',
+        imageUrl: 'https://firebasestorage.googleapis.com/v0/b/tree-map-ae44c.appspot.com/o/species%2FWhitebarkPine_7467t.jpg?alt=media&token=fc1e504c-81c5-4dbb-ad98-3a95aa6f9f51'
     },
     {
-        name: 'Ciprés',
         description: 'Los cipreses son árboles coníferos que se utilizan a menudo en paisajismo. Son conocidos por su forma cónica y su resistencia a la sequía.',
-        className: 'blue',
-        image: '/images/cyp.jpg'
+        color: '#009B77',
+        commonName: 'Ciprés',
+        foliage: 'Perenne',
+        scientificName: 'Cupressus',
+        imageUrl: 'https://firebasestorage.googleapis.com/v0/b/tree-map-ae44c.appspot.com/o/species%2FWhitebarkPine_7467t.jpg?alt=media&token=fc1e504c-81c5-4dbb-ad98-3a95aa6f9f51'
     },
     {
-        name: 'Manzano',
-        description: 'El manzano Duque (Malus domestica) es una variedad de manzana que se caracteriza por su robustez y su capacidad de adaptarse a diferentes climas y suelos.',
-        className: 'blue',
-        image: '/images/manza.jpg'
+        description: 'El manzano es un árbol que produce las famosas manzanas, muy apreciadas por su sabor y versatilidad.',
+        color: '#FFD700',
+        commonName: 'Manzano',
+        foliage: 'Caducifolio',
+        scientificName: 'Malus domestica',
+        imageUrl: 'https://firebasestorage.googleapis.com/v0/b/tree-map-ae44c.appspot.com/o/species%2FWhitebarkPine_7467t.jpg?alt=media&token=fc1e504c-81c5-4dbb-ad98-3a95aa6f9f51'
     },
     {
-        name: 'Cerezo',
         description: 'Los cerezos son conocidos por sus hermosas flores rosadas que adornan las calles en primavera.',
-        className: 'pink',
-        image: '/images/cerezo.jpg'
+        color: '#EFC050',
+        commonName: 'Cerezo',
+        foliage: 'Caducifolio',
+        scientificName: 'Prunus avium',
+        imageUrl: 'https://firebasestorage.googleapis.com/v0/b/tree-map-ae44c.appspot.com/o/species%2FWhitebarkPine_7467t.jpg?alt=media&token=fc1e504c-81c5-4dbb-ad98-3a95aa6f9f51'
     },
     {
-        name: 'Fresno',
         description: 'El fresno es un árbol resistente que se utiliza frecuentemente en paisajismo urbano.',
-        className: 'blue',
-        image: '/images/fresno.jpg'
+        color: '#FFA500',
+        commonName: 'Fresno',
+        foliage: 'Pinnaticompuestas',
+        scientificName: 'Fraxinus',
+        imageUrl: 'https://firebasestorage.googleapis.com/v0/b/tree-map-ae44c.appspot.com/o/species%2FWhitebarkPine_7467t.jpg?alt=media&token=fc1e504c-81c5-4dbb-ad98-3a95aa6f9f51'
     },
     {
-        name: 'Sauce Llorón',
         description: 'El sauce llorón es un árbol típico en parques, conocido por su forma y follaje colgante.',
-        className: 'green',
-        image: '/images/sauce_lloron.jpg'
+        color: '#45B8AC',
+        commonName: 'Sauce Llorón',
+        foliage: 'Caducifolio',
+        scientificName: 'Salix babylonica',
+        imageUrl: 'https://firebasestorage.googleapis.com/v0/b/tree-map-ae44c.appspot.com/o/species%2FWhitebarkPine_7467t.jpg?alt=media&token=fc1e504c-81c5-4dbb-ad98-3a95aa6f9f51'
     },
     {
-        name: 'Álamo',
         description: 'El álamo es un árbol de rápido crecimiento, muy utilizado en calles y avenidas.',
-        className: 'brown',
-        image: '/images/alamo.jpg'
+        color: '#EFC050',
+        commonName: 'Álamo',
+        foliage: 'Caducifolio',
+        scientificName: 'Populus alba',
+        imageUrl: 'https://firebasestorage.googleapis.com/v0/b/tree-map-ae44c.appspot.com/o/species%2FWhitebarkPine_7467t.jpg?alt=media&token=fc1e504c-81c5-4dbb-ad98-3a95aa6f9f51'
     },
     {
-        name: 'Olivo',
         description: 'El olivo es un árbol mediterráneo conocido por sus pequeñas hojas plateadas y su fruto, la aceituna.',
-        className: 'green',
-        image: '/images/olivo.jpg'
+        color: '#88B04B',
+        commonName: 'Olivo',
+        foliage: 'Perenne',
+        scientificName: 'Olea europaea',
+        imageUrl: 'https://firebasestorage.googleapis.com/v0/b/tree-map-ae44c.appspot.com/o/species%2FWhitebarkPine_7467t.jpg?alt=media&token=fc1e504c-81c5-4dbb-ad98-3a95aa6f9f51'
     },
     {
-        name: 'Lapacho',
         description: 'El lapacho es un árbol nativo de Sudamérica, conocido por sus impresionantes flores en tonos de rosa, amarillo y blanco.',
-        className: 'pink',
-        image: '/images/lapacho.jpg'
+        color: '#9B2335',
+        commonName: 'Lapacho',
+        foliage: 'Caducifolio',
+        scientificName: 'Handroanthus impetiginosus',
+        imageUrl: 'https://firebasestorage.googleapis.com/v0/b/tree-map-ae44c.appspot.com/o/species%2FWhitebarkPine_7467t.jpg?alt=media&token=fc1e504c-81c5-4dbb-ad98-3a95aa6f9f51'
     }
 ];
 

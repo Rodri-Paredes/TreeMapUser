@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import './treetypes.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import treeTypes from './../../data/treeTypes';
+import useFetchSpecies from './../../hooks/useFetchSpecies';
+import config from '../../firebaseConfig';
 
 const TreeType = () => {
     const [selectedImage, setSelectedImage] = useState(null);
     const [selectedTreeClass, setSelectedTreeClass] = useState('');
-
+    const[species, setSpecies]=useState([]);
+    useFetchSpecies(setSpecies, config);
     const handleImageClick = (tree) => {
         setSelectedImage(tree.image);
         setSelectedTreeClass(tree.className);
@@ -58,16 +60,16 @@ const TreeType = () => {
             </div>
 
                 <div className="row">
-                    {treeTypes.map((tree) => (
-                        <div className={`col-md-4 mb-4`} key={tree.name}>
-                            <div className={`card ${tree.className} text-white`}>
+                    {species?.map((tree) => (
+                        <div className={`col-md-4 mb-4`} key={tree.commonName}>
+                            <div className="card text-white" style={{ backgroundColor: tree.color }}>
                                 <div className="card-body">
-                                    <h5 className="card-title">{tree.name}</h5>
+                                    <h5 className="card-title">{tree.commonName}</h5>
                                     <p className="card-text">{tree.description}</p>
                                 </div>
                                 <img
-                                    src={tree.image}
-                                    alt={tree.name}
+                                    src={tree.imageUrl}
+                                    alt={tree.commonName}
                                     className="card-img-top tree-image mx-auto d-block"
                                     style={{ width: '100%', height: '200px', objectFit: 'contain', cursor: 'pointer' }}
                                     onClick={() => handleImageClick(tree)} 
