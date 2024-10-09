@@ -3,7 +3,7 @@ import { Offcanvas } from 'react-bootstrap';
 import './Sidenav.css';  // Importa el archivo CSS
 
 function Sidenav({ tree, onClose }) {
-
+  console.log(tree)
   const calculateAge = (dateBirth) => {
     if (!dateBirth) return 'No especificado';
   
@@ -28,7 +28,7 @@ function Sidenav({ tree, onClose }) {
       </Offcanvas.Header>
       <Offcanvas.Body>
         <h5>Nombre Científico: {tree.species.scientificName || 'No especificado'}</h5>
-        <p>{tree.description || 'No disponible'}</p>
+        <p>{tree.species.description || 'No disponible'}</p>
         <p>
           <strong>Edad estimada:</strong>
           {tree.dateBirth

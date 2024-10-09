@@ -18,24 +18,8 @@ function getMarkerIcon(tree) {
         return null;
     }
 
-    let color;
+    let color= tree.species.color;
     let size;
-
-    // Cambiar el color del marcador según la especie
-    switch (tree.species.commonName) {
-        case 'Oak':
-            color = 'red'; // Color para Oak
-            break;
-        case 'Maple':
-            color = 'green'; // Color para Maple
-            break;
-        case 'Maraco':
-            color = 'blue'; // Color para Maraco
-            break;
-        default:
-            color = 'gray'; // Color por defecto para otras especies
-            break;
-    }
 
     // Definir el tamaño del marcador basado en el diámetro del árbol
     if (tree.diameter < 20) {

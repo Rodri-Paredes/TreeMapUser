@@ -21,6 +21,9 @@ const useFetchTrees = (setTrees, config) => {
                             commonName: value.commonName,
                             scientificName: value.scientificName,
                             foliage: value.foliage,
+                            color: value.color,
+                            description: value.description,
+                            imageUrl: value.imageUrl
                         },
                     ])
                 );
