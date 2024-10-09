@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import './treetypes.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import useFetchSpecies from './../../hooks/useFetchSpecies';
-import config from '../../firebaseConfig';
+import useFetchSpecies from 'hooks/useFetchSpecies';
+import config from 'config/firebaseConfig';
 
 const TreeType = () => {
     const [selectedImage, setSelectedImage] = useState(null);

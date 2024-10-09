@@ -24,7 +24,7 @@ function Sidenav({ tree, onClose }) {
   return (
     <Offcanvas className="sidenav-custom" show={true} onHide={onClose} placement="start">
       <Offcanvas.Header closeButton>
-        <Offcanvas.Title>{tree.code}</Offcanvas.Title>
+        <Offcanvas.Title>{tree.species.commonName}</Offcanvas.Title>
       </Offcanvas.Header>
       <Offcanvas.Body>
         <h5>Nombre Científico: {tree.species.scientificName || 'No especificado'}</h5>
@@ -43,8 +43,6 @@ function Sidenav({ tree, onClose }) {
         <p><strong>Polígono:</strong> {tree.sector.polygon || 'No especificado'}</p>
         <p><strong>Diámetro:</strong> {tree.diameter ? `${tree.diameter} cm` : 'No especificado'}</p>
         <p><strong>Fecha de censo:</strong> {tree.censusDate || 'No especificada'}</p>
-        <p><strong>Latitud:</strong> {tree.latitude || 'No disponible'}</p>
-        <p><strong>Longitud:</strong> {tree.longitude || 'No disponible'}</p>
 
         {/* Mostrar imagen del árbol si está disponible */}
         {tree.imageUrl && (

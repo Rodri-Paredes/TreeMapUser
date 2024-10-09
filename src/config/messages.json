@@ -1,0 +1,39 @@
+{
+    "about": {
+      "title": "Acerca de Nosotros",
+      "project": {
+        "header": "Acerca del Proyecto",
+        "description": "Somos un grupo comprometido con la mejora de los métodos de censo de árboles para el GAC (Grupo de Acción Comunitaria). Nuestro sistema está diseñado para censar y monitorizar los árboles de forma eficiente, comenzando con los ubicados en Univalle Tiquipaya..."
+      },
+      "mission": {
+        "header": "Misión",
+        "description": "Nuestra misión es proporcionar al GAC una herramienta tecnológica que facilite el censo y seguimiento de los árboles de Univalle Tiquipaya..."
+      },
+      "vision": {
+        "header": "Visión",
+        "description": "A futuro, planeamos expandir nuestro sistema a otras áreas y municipios..."
+      },
+      "team": {
+        "header": "Equipo de Desarrollo",
+        "description": "Somos un equipo multidisciplinario de estudiantes apasionados por la tecnología y el medio ambiente..."
+      },
+      "technologies": {
+        "header": "Tecnologías Utilizadas",
+        "items": [
+          "Leaflet.js",
+          "React.js"
+        ]
+      },
+      "objectives": {
+        "header": "Objetivos del Proyecto",
+        "items": [
+          "Desarrollar un sistema eficiente para el censo de árboles en Univalle Tiquipaya.",
+          "Facilitar la toma de decisiones sobre el cuidado y conservación de árboles."
+        ]
+      }
+    },
+    "mapPage": {
+
+    }
+  }
+  

@@ -1,11 +1,11 @@
 import { useState } from "react";
-import treesData from "../../data/treesData";
+import treesData from "data/treesData";
 import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
-import Sidenav from './../../components/C_Sidenav/Sidenav';
+import Sidenav from 'components/C_Sidenav/Sidenav';
 import './MapPage.css';
-import useFetchTrees from "../../hooks/useFetchTrees";
-import config from "../../firebaseConfig";
-import configuration from "./../../configuration";
+import useFetchTrees from "hooks/useFetchTrees";
+import firebaseConfig from "config/firebaseConfig";
+import configuration from 'config/configuration';
 
 const mapContainerStyle = {
     width: '100%',
@@ -43,11 +43,11 @@ function getMarkerIcon(tree) {
 
 function MapPage() {
     const [trees, setTrees] = useState([]);
-    useFetchTrees(setTrees, config);
+    useFetchTrees(setTrees, firebaseConfig);
 
     // Cargar el script de Google Maps
     const { isLoaded } = useLoadScript({
-        googleMapsApiKey: 'AIzaSyCYUX86b8TJ1yDLVcObptfb3XF5L19BYzg',  // Reemplaza con tu clave API válida
+        googleMapsApiKey: configuration.map.googleMapsApiKey,  // Reemplaza con tu clave API válida
     });
 
     // Estado para manejar la selección de un árbol en el mapa
@@ -81,7 +81,7 @@ function MapPage() {
             {/* Sección de estadísticas debajo del mapa */}
             <div className="statistics-container">
                 <h4>Estadísticas</h4>
-                <p>Árboles registrados en el mapa: <strong>{treesData.length}</strong></p>
+                <p>Árboles registrados en el mapa: <strong>{trees.length}</strong></p>
             </div>
 
             {/* Agregar el footer */}
