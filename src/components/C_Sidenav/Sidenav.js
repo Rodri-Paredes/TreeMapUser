@@ -3,30 +3,53 @@ import { Offcanvas } from 'react-bootstrap';
 import './Sidenav.css';  // Importa el archivo CSS
 
 function Sidenav({ tree, onClose }) {
+
+  const calculateAge = (dateBirth) => {
+    if (!dateBirth) return 'No especificado';
+  
+    const birthDate = new Date(dateBirth);
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDifference = today.getMonth() - birthDate.getMonth();
+    const dayDifference = today.getDate() - birthDate.getDate();
+  
+    // Ajusta la edad si el mes o día aún no han pasado este año
+    if (monthDifference < 0 || (monthDifference === 0 && dayDifference < 0)) {
+      age--;
+    }
+  
+    return `${age} años`;
+  };
+
   return (
     <Offcanvas className="sidenav-custom" show={true} onHide={onClose} placement="start">
       <Offcanvas.Header closeButton>
-        <Offcanvas.Title>{tree.name}</Offcanvas.Title>
+        <Offcanvas.Title>{tree.code}</Offcanvas.Title>
       </Offcanvas.Header>
       <Offcanvas.Body>
-        <h5>Nombre Científico: {tree.scientificName || 'No especificado'}</h5>
+        <h5>Nombre Científico: {tree.species.scientificName || 'No especificado'}</h5>
         <p>{tree.description || 'No disponible'}</p>
-        <p><strong>Año estimado de vida:</strong> {tree.estimatedLife || 'No especificado'}</p>
-        <p><strong>Follaje:</strong> {tree.foliage || 'Desconocido'}</p>
+        <p>
+          <strong>Edad estimada:</strong>
+          {tree.dateBirth
+            ? `${calculateAge(tree.dateBirth)}`
+            : 'No especificado'}
+        </p>
+        <p><strong>Follaje:</strong> {tree.species.foliage || 'Desconocido'}</p>
         
         <hr />
 
-        <p><strong>Sector:</strong> {tree.sector || 'No especificado'}</p>
-        <p><strong>Polígono:</strong> {tree.polygon || 'No especificado'}</p>
+        <p><strong>Sector:</strong> {tree.sector.name || 'No especificado'}</p>
+        <p><strong>Polígono:</strong> {tree.sector.polygon || 'No especificado'}</p>
         <p><strong>Diámetro:</strong> {tree.diameter ? `${tree.diameter} cm` : 'No especificado'}</p>
         <p><strong>Fecha de censo:</strong> {tree.censusDate || 'No especificada'}</p>
-        <p><strong>Latitud:</strong> {tree.position?.lat || 'No disponible'}</p>
-        <p><strong>Longitud:</strong> {tree.position?.lng || 'No disponible'}</p>
+        <p><strong>Latitud:</strong> {tree.latitude || 'No disponible'}</p>
+        <p><strong>Longitud:</strong> {tree.longitude || 'No disponible'}</p>
 
         {/* Mostrar imagen del árbol si está disponible */}
         {tree.imageUrl && (
           <div style={{ marginTop: '15px' }}>
-            <img src={tree.imageUrl} alt={tree.name} style={{ width: '100%', height: 'auto' }} />
+            <img src={tree.imageUrl} alt={tree.code} style={{ width: '100%', height: 'auto' }} />
           </div>
         )}
       </Offcanvas.Body>

@@ -1,0 +1,23 @@
+/* Contenedor del mapa para que ocupe el espacio disponible sin afectar el footer */
+.map-container {
+    flex-grow: 1;
+    height: auto;
+    /* Deja que el contenedor crezca naturalmente */
+}
+
+/* Asegúrate de que las estadísticas estén bien alineadas */
+.statistics-container {
+    text-align: center;
+    padding: 20px;
+    background-color: #ecf0f1;
+}
+
+.footer {
+    background-color: #267e3f; /* Mismo color que el navbar */
+    color: #ecf0f1; /* Color del texto en el footer */
+    padding: 10px 20px;
+    text-align: center;
+    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera en la parte superior */
+    width: 100%;
+    margin-top: auto; /* Asegura que el footer se quede en la parte inferior */
+  }
