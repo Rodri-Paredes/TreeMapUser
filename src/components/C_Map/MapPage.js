@@ -44,9 +44,10 @@ function getMarkerIcon(tree) {
 
 function MapPage() {
     const [trees, setTrees] = useState([]);
+    const [sectors, setSectors] = useState([]);
 
     useFetchTrees(setTrees, firebaseConfig);
-    const sectorsData = useFetchSectors();
+    useFetchSectors(setSectors, firebaseConfig);
 
     // Cargar el script de Google Maps
     const { isLoaded } = useLoadScript({
@@ -62,7 +63,7 @@ function MapPage() {
     return (
         <>
         <div style={{ display: 'flex', fontSize: '0.8rem', flexDirection: 'row', justifyContent: 'center', marginBottom: '20px' }}>
-                {sectorsData.map((sectorItem, index) => (
+                {sectors.map((sectorItem, index) => (
                     <div key={index} style={{ display: 'flex', alignItems: 'center', marginRight: '20px' }}>
                         {/* Círculo con el color */}
                         <div
@@ -86,7 +87,7 @@ function MapPage() {
                     center={configuration.map.center}
                 >
 
-                    {sectorsData.map((sectorItem, index)=>{
+                    {sectors?.map((sectorItem, index)=>{
                         return(<Polygon key={index}
                             paths={sectorItem.polygonPath}
                             options={{
@@ -99,7 +100,7 @@ function MapPage() {
                         />)
                     })}
                     {/* Añadir marcadores de los árboles al mapa */}
-                    {trees.map((tree) => (
+                    {trees?.map((tree) => (
                         <Marker
                         key={tree.id}
                         position={{ lat: tree.latitude, lng: tree.longitude }}
