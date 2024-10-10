@@ -6,6 +6,7 @@ import useFetchTrees from "hooks/useFetchTrees";
 import firebaseConfig from "config/firebaseConfig";
 import configuration from 'config/configuration';
 import useFetchSectors from "hooks/useFetchSectors";
+import messages from 'config/messages.json';
 
 const mapContainerStyle = {
     width: '100%',
@@ -56,7 +57,7 @@ function MapPage() {
     const [selectedTree, setSelectedTree] = useState(null);
 
     // Mostrar un mensaje de carga mientras se carga el mapa
-    if (!isLoaded) return <div>Loading...</div>;
+    if (!isLoaded) return <div>{messages.mapPage.loadingMessage}</div>;
 
     return (
         <>
@@ -113,13 +114,13 @@ function MapPage() {
 
             {/* Sección de estadísticas debajo del mapa */}
             <div className="statistics-container">
-                <h4>Estadísticas</h4>
-                <p>Árboles registrados en el mapa: <strong>{trees.length}</strong></p>
+                <h4>{messages.mapPage.statisticsTitle}</h4>
+                <p>{messages.mapPage.registeredTrees} <strong>{trees.length}</strong></p>
             </div>
 
             {/* Agregar el footer */}
             <footer className="footer">
-                <p>© 2024 TreeMap NYC. Todos los derechos reservados.</p>
+                <p>{messages.mapPage.footerText}</p>
             </footer>
         </>
     )

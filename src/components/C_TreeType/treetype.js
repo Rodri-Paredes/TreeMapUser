@@ -3,12 +3,14 @@ import './treetypes.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import useFetchSpecies from 'hooks/useFetchSpecies';
 import config from 'config/firebaseConfig';
+import messages from 'config/messages.json';
 
 const TreeType = () => {
     const [selectedImage, setSelectedImage] = useState(null);
     const [selectedTreeClass, setSelectedTreeClass] = useState('');
-    const[species, setSpecies]=useState([]);
+    const [species, setSpecies] = useState([]);
     useFetchSpecies(setSpecies, config);
+
     const handleImageClick = (tree) => {
         setSelectedImage(tree.image);
         setSelectedTreeClass(tree.className);
@@ -45,19 +47,12 @@ const TreeType = () => {
                 }}
             />
             <div className="container" style={{ marginTop: '70px', position: 'relative', zIndex: 1 }}>
-            
-            <div className="container text-center">
-                <h2>Tipos de Árbol:</h2>
-                <p className="welcome-description">
-                    Bienvenido a la sección de Tipos de Árbol. Aquí podrás explorar diferentes variedades de árboles, 
-                    aprender sobre sus características y apreciar la belleza de la naturaleza. Cada tipo de árbol juega un 
-                    papel vital en nuestro ecosistema, proporcionando sombra, oxígeno y hábitats para la vida silvestre. 
-                    Desde los majestuosos pinos que se alzan hacia el cielo hasta los delicados cerezos que adornan nuestras 
-                    calles en primavera, cada árbol tiene su propia historia que contar. Te invitamos a sumergirte en el 
-                    fascinante mundo de la arboricultura, donde podrás descubrir la importancia de cuidar y preservar estos 
-                    valiosos recursos naturales. ¡Explora y aprende más sobre cada especie!
-                </p>
-            </div>
+                <div className="container text-center">
+                    <h2>{messages.treeType.title}</h2>
+                    <p className="welcome-description">
+                        {messages.treeType.description}
+                    </p>
+                </div>
 
                 <div className="row">
                     {species?.map((tree) => (
@@ -89,7 +84,7 @@ const TreeType = () => {
                                     &times;
                                 </button>
                                 <h5 className="modal-title" style={{ marginLeft: '10px' }}>
-                                    Imagen detallada del árbol
+                                    {messages.treeType.modalTitle}
                                 </h5>
                             </div>
                             <div className="modal-body">
