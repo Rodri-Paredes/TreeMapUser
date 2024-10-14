@@ -1,23 +1,77 @@
-/* Contenedor del mapa para que ocupe el espacio disponible sin afectar el footer */
-.map-container {
-    flex-grow: 1;
-    height: auto;
-    /* Deja que el contenedor crezca naturalmente */
+/* Contenedor principal que organiza el mapa y las estadísticas */
+.main-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: calc(100vh - 60px); /* Ocupa toda la altura de la ventana menos el footer */
+    padding: 10px;
+    gap: 20px;
 }
 
-/* Asegúrate de que las estadísticas estén bien alineadas */
+/* Contenedor de estadísticas que está a la izquierda */
 .statistics-container {
-    text-align: center;
-    padding: 20px;
+    flex: 0 0 25%; /* El contenedor de estadísticas ocupa el 25% del ancho */
     background-color: #ecf0f1;
+    padding: 20px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    max-height: 100%;
+    overflow-y: auto; /* Permite que tenga scroll si es necesario */
 }
 
+/* Para el scroll en la lista de sectores */
+.Scroll {
+    overflow-y: auto; /* Activar scroll vertical */
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    /*scrollbar-width: none;*/
+}
+.sector-color {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.custom-button:hover {
+    background-color: #5dffc9; /* Color de fondo en hover */
+}
+
+/* Contenedor del mapa a la derecha */
+.map-container {
+    flex: 1; /* Ocupa el resto del espacio disponible */
+    height: 100%;
+    position: relative;
+}
+
+/* Footer */
 .footer {
-    background-color: #267e3f; /* Mismo color que el navbar */
-    color: #ecf0f1; /* Color del texto en el footer */
+    background-color: #267e3f;
+    color: #ecf0f1;
     padding: 10px 20px;
     text-align: center;
-    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera en la parte superior */
     width: 100%;
-    margin-top: auto; /* Asegura que el footer se quede en la parte inferior */
-  }
+    margin-top: auto;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .main-container {
+        flex-direction: column; /* Cambiar a columna en pantallas pequeñas */
+    }
+    
+    .statistics-container {
+        width: 100%; /* Ocupa todo el ancho */
+        margin-bottom: 20px;
+    }
+    
+    .map-container {
+        width: 100%; /* Ocupa todo el ancho */
+        height: 400px; /* Ajuste para pantallas pequeñas */
+    }
+}

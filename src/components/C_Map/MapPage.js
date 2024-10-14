@@ -7,6 +7,7 @@ import firebaseConfig from "config/firebaseConfig";
 import configuration from 'config/configuration';
 import useFetchSectors from "hooks/useFetchSectors";
 import messages from 'config/messages.json';
+import { Button } from "react-bootstrap";
 
 const mapContainerStyle = {
     width: '100%',
@@ -61,70 +62,75 @@ function MapPage() {
     if (!isLoaded) return <div>{messages.mapPage.loadingMessage}</div>;
 
     return (
-        <>
-        <div style={{ display: 'flex', fontSize: '0.8rem', flexDirection: 'row', justifyContent: 'center', marginBottom: '20px' }}>
-                {sectors.map((sectorItem, index) => (
-                    <div key={index} style={{ display: 'flex', alignItems: 'center', marginRight: '20px' }}>
-                        {/* Círculo con el color */}
-                        <div
-                            style={{
-                                width: '20px',
-                                height: '20px',
-                                borderRadius: '50%',
-                                backgroundColor: sectorItem.color,
-                                marginRight: '10px',
-                            }}
-                        ></div>
-                        {/* Nombre del sector */}
-                        <span>{sectorItem.name}</span>
-                    </div>
-                ))}
+    <>
+
+                <div className="Scroll">
+                    {sectors.map((sectorItem, index) => (
+                        <>
+                            <Button key={index}
+                            className="custom-button"
+                                style={{
+                                    color: sectorItem.color,            // Color del texto
+                                    borderColor: sectorItem.color,
+                                    marginRight: 10,
+                                    fontSize: 12,
+                                    minWidth: '210px'
+                                }}
+                                variant="outline-primary"  // O cualquier otro estilo que estés usando
+                            >
+                                {sectorItem.name + " " + "(10)"}
+                            </Button>
+                        </>
+                    ))}
+                </div>
+        <div className="main-container">
+            <div className="statistics-container">
+                <h4>{messages.mapPage.statisticsTitle}</h4>
+                <p>
+                    {messages.mapPage.registeredTrees} <strong>{trees.length}</strong>
+                </p>
+
+   
             </div>
+
             <div className="map-container">
                 <GoogleMap
                     mapContainerStyle={mapContainerStyle}
                     zoom={configuration.map.zoom}
                     center={configuration.map.center}
                 >
-
-                    {sectors?.map((sectorItem, index)=>{
-                        return(<Polygon key={index}
+                    {sectors?.map((sectorItem, index) => (
+                        <Polygon
+                            key={index}
                             paths={sectorItem.polygonPath}
                             options={{
                                 fillColor: sectorItem.color,
                                 fillOpacity: 0.5,
                                 strokeColor: sectorItem.color,
                                 strokeOpacity: 1,
-                                strokeWeight: 2
+                                strokeWeight: 2,
                             }}
-                        />)
-                    })}
-                    {/* Añadir marcadores de los árboles al mapa */}
+                        />
+                    ))}
                     {trees?.map((tree) => (
                         <Marker
-                        key={tree.id}
-                        position={{ lat: tree.latitude, lng: tree.longitude }}
-                        icon={getMarkerIcon(tree)}
-                        onClick={() => setSelectedTree(tree)}
-                    />
+                            key={tree.id}
+                            position={{ lat: tree.latitude, lng: tree.longitude }}
+                            icon={getMarkerIcon(tree)}
+                            onClick={() => setSelectedTree(tree)}
+                        />
                     ))}
                 </GoogleMap>
-                {/* Mostrar detalles del árbol en un sidenav cuando se selecciona */}
                 {selectedTree && <Sidenav tree={selectedTree} onClose={() => setSelectedTree(null)} />}
             </div>
+        </div>
 
-            {/* Sección de estadísticas debajo del mapa */}
-            <div className="statistics-container">
-                <h4>{messages.mapPage.statisticsTitle}</h4>
-                <p>{messages.mapPage.registeredTrees} <strong>{trees.length}</strong></p>
-            </div>
-
-            {/* Agregar el footer */}
-            <footer className="footer">
-                <p>{messages.mapPage.footerText}</p>
-            </footer>
-        </>
-    )
+        {/* Footer */}
+        <footer className="footer">
+            <p>{messages.mapPage.footerText}</p>
+        </footer>
+    </>
+);
 }
 
 export default MapPage;
