@@ -1,6 +1,6 @@
 /* Sidenav.css */
 .sidenav-custom {
-    background-color:var(--color-primary); /* Fondo oscuro elegante */
+    background-color:var(--coor-desc); /* Fondo oscuro elegante */
     color: var(--color-desc);/* Texto claro */
     padding: 20px;
   }

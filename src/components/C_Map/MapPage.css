@@ -51,7 +51,7 @@
 
 /* Footer */
 .footer {
-    background-color: var(--color-secondary);;
+    background-color: var(--color-secondary);
     color: #ecf0f1;
     padding: 10px 20px;
     text-align: center;
@@ -93,6 +93,23 @@
      /* Reemplazar con la URL del ícono si es necesario */
     margin-right: 10px; /* Espacio entre el ícono y el texto */
 }
+.custom-toggle-button {
+    background-color:var(--color-primary) !important;  /* Verde personalizado */
+    color: white !important;
+    border: none !important;
+    padding: 10px 20px !important;
+    font-size: 16px !important;
+    border-radius: 5px !important;
+    cursor: pointer !important;
+    width: 100px;
+    height: 70px;
+    position: absolute;
+}
+
+.custom-toggle-button:hover {
+    background-color:var(--color-primary) !important; /* Color más oscuro en hover */
+}
+
 
 
 /* Responsividad */
@@ -111,3 +128,23 @@
         height: 400px; /* Ajuste para pantallas pequeñas */
     }
 }
+/* Mostrar el botón solo en pantallas móviles */
+@media (max-width: 768px) {
+    .toggle-button-container {
+        display: block;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .statistics-container {
+        transition: all 0.3s ease; /* Animación al ocultar */
+    }
+}
+
+/* Ocultar el botón en pantallas más grandes */
+@media (min-width: 769px) {
+    .toggle-button-container {
+        display: none;
+    }
+}
+
