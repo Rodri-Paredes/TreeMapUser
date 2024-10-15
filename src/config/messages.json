@@ -34,9 +34,9 @@
     },
     "navBar": {
       "title":"TreeMap Univalle",
-      "home":"Map",
-      "about":"About",
-      "treeType":"Tree Type"
+      "home":"Mapa",
+      "about":"Sobre Nosotros",
+      "treeType":"Tipos de Arboles"
     },
     "treeType": {
       "title": "Tipos de Árbol:",

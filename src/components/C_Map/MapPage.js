@@ -47,6 +47,7 @@ function MapPage() {
     const [trees, setTrees] = useState([]);
     const [sectors, setSectors] = useState([]);
     const [selectedSector, setSelectedSector] = useState(null); // Estado para el sector seleccionado
+    const [showStats, setShowStats] = useState(true);
 
     useFetchTrees(setTrees, firebaseConfig);
     useFetchSectors(setSectors, firebaseConfig);
@@ -108,14 +109,27 @@ function MapPage() {
                     </Button>
                 ))}
             </div>
+            <div className="show-stats">
+    <Button className="btn-custom" onClick={() => setShowStats(!showStats)}>
+        {showStats ? 'Ocultar Estadísticas' : 'Mostrar Estadísticas'}
+    </Button>
+    {selectedSector && (
+        <Button className="btn-custom" onClick={() => setSelectedSector(null)}>
+            Mostrar todos los sectores
+        </Button>
+    )}
+</div>
+
+
 
             <div className="main-container">
-                <div className="statistics-container">
+                {showStats && (<div className="statistics-container">
                     <h4>{messages.mapPage.statisticsTitle}</h4>
                     <p>
                         {messages.mapPage.registeredTrees} <strong>{trees.length}</strong>
                     </p>
                     <h4>{messages.mapPage.statisticsSector}</h4>
+                    <h4>{selectedSector?.name}</h4>
                     <p>
                         {messages.mapPage.registeredTreesSector}
                         <strong>{selectedSector ? countTreesBySector(selectedSector.id) : 0}</strong>
@@ -150,7 +164,7 @@ function MapPage() {
                             <strong>{messages.ecologicalBenefits.totalValueLabel} $152.35</strong>
                         </p>
                     </div>
-                </div>
+                </div>)}
 
                 <div className="map-container">
                     <GoogleMap

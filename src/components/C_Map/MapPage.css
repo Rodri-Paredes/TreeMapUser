@@ -94,6 +94,44 @@
     margin-right: 10px; /* Espacio entre el ícono y el texto */
 }
 
+/* Contenedor para mostrar los botones de estadísticas */
+.show-stats {
+    display: flex;
+    justify-content: flex-start; /* Alinear los botones a la izquierda */
+    margin-top: 10px; /* Espaciado superior */
+    gap: 10px; /* Espaciado entre los botones */
+}
+
+/* Estilo para los botones */
+.show-stats .btn-custom {
+    background-color: var(--color-secondary); /* Color de fondo */
+    color: white; /* Color del texto */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    padding: 8px 16px; /* Espaciado interno */
+    font-size: 1rem; /* Tamaño de fuente */
+    cursor: pointer; /* Indicar que es clickeable */
+    transition: background-color 0.3s, transform 0.2s; /* Transición suave para el fondo y la transformación */
+}
+
+/* Cambiar el color al pasar el mouse */
+.show-stats .btn-custom:hover {
+    background-color: var(--color-secondary);/* Color de fondo al pasar el mouse */
+    transform: translateY(-2px); /* Ligera elevación al pasar el mouse */
+}
+
+/* Estilos específicos para móviles */
+@media (max-width: 768px) {
+    .show-stats {
+        flex-direction: column; /* Cambiar a columna en pantallas pequeñas */
+        align-items: flex-start; /* Alinear los botones a la izquierda */
+    }
+    
+    .show-stats .btn-custom {
+        font-size: 0.9rem; /* Reducir tamaño de fuente en móviles */
+    }
+}
+
 
 /* Responsividad */
 @media (max-width: 768px) {

@@ -1,11 +1,12 @@
 /* tokens.css */
 :root {
     --color-primary: #8C8C8C;
-    --color-secondary: #9718ab;
+    --color-secondary: #0b9c2a;
     --color-success: #D97197;
-    --color-danger: #e78a8a;
+    --color-danger: #015001;
     --color-tercy: #8C8C8C;
     --coor-desc: #F2F2F2;
+    --color-h5:#cd5751;
   
     --spacing-small: 8px;
     --spacing-medium: 16px;
