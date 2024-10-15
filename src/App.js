@@ -6,6 +6,7 @@ import About from './components/C_About/About';
 import TreeType from './components/C_TreeType/treetype';
 import './App.css';
 import MapPage from './components/C_Map/MapPage';
+import './tokens.css';
 
 // Estilos para el contenedor del mapa
 

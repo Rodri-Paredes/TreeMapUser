@@ -1,7 +1,7 @@
 /* Sidenav.css */
 .sidenav-custom {
-    background-color: #34495e; /* Fondo oscuro elegante */
-    color: #ecf0f1; /* Texto claro */
+    background-color:var(--color-primary); /* Fondo oscuro elegante */
+    color: var(--color-desc);/* Texto claro */
     padding: 20px;
   }
   
@@ -12,7 +12,7 @@
   .sidenav-custom .offcanvas-title {
     font-size: 24px;
     font-weight: bold;
-    color: #ecf0f1;
+    color: var(--color-desc);
   }
   
   .sidenav-custom .offcanvas-body {
@@ -23,16 +23,16 @@
   .sidenav-custom h5 {
     font-size: 20px;
     margin-bottom: 10px;
-    color: #f1c40f; /* Color amarillo dorado para títulos */
+    color: var(--color-success); /* Color amarillo dorado para títulos */
   }
   
   .sidenav-custom p {
-    color: #bdc3c7;
+    color: var(--color-desc);
     margin-bottom: 15px;
   }
   
   .sidenav-custom strong {
-    color: #f39c12; /* Color naranja dorado para el texto destacado */
+    color: var(--color-success); /* Color naranja dorado para el texto destacado */
   }
   
   .sidenav-custom .btn-close {

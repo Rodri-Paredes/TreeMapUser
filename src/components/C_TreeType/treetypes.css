@@ -28,7 +28,7 @@
 
 .welcome-description {
     font-size: 16px;
-    color: #ffffff; /* Azul oscuro */
+    color: var(--color-primary);  /* Azul oscuro */
     margin-bottom: 20px; /* Espacio inferior */
 }
 
@@ -38,7 +38,7 @@
     align-items: center; /* Alinear verticalmente */
     padding: 15px; /* Espaciado */
     margin-bottom: 10px; /* Espacio inferior entre elementos */
-    color: #ffffff; /* Texto negro para cada elemento de la lista */
+    color: var(--color-desc); /* Texto negro para cada elemento de la lista */
 }
 
 .image-container {
@@ -76,7 +76,7 @@
 
 /* Asegurar que el texto en las tarjetas sea negro */
 .card {
-    color: #ffffff; /* Texto negro para las tarjetas */
+    color: var(--color-desc); /* Texto negro para las tarjetas */
 }
 
 /* Estilos para el texto dentro de las tarjetas */
@@ -87,6 +87,7 @@
 
 .card-text {
     font-size: 0.9rem; /* Tamaño de fuente para el texto de la tarjeta */
+    color: var(--color-desc);
 }
 
 /* Espaciado adicional para las tarjetas */
@@ -94,7 +95,7 @@
     padding: 15px; /* Espaciado interior en las tarjetas */
 }
 h2{
-    color: #ffffff;
+    color: var(--color-primary);
 }
 .card-img-top {
     transition: transform 0.3s, box-shadow 0.3s; /* Animación de transformación y sombra */

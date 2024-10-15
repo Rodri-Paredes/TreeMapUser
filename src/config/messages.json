@@ -34,25 +34,30 @@
     },
     "navBar": {
       "title":"TreeMap Univalle",
-      "home":"Home",
+      "home":"Map",
       "about":"About",
       "treeType":"Tree Type"
     },
     "treeType": {
       "title": "Tipos de Árbol:",
       "description": "Bienvenido a la sección de Tipos de Árbol. Aquí podrás explorar diferentes variedades de árboles, aprender sobre sus características y apreciar la belleza de la naturaleza. Cada tipo de árbol juega un papel vital en nuestro ecosistema, proporcionando sombra, oxígeno y hábitats para la vida silvestre. Desde los majestuosos pinos que se alzan hacia el cielo hasta los delicados cerezos que adornan nuestras calles en primavera, cada árbol tiene su propia historia que contar. Te invitamos a sumergirte en el fascinante mundo de la arboricultura, donde podrás descubrir la importancia de cuidar y preservar estos valiosos recursos naturales. ¡Explora y aprende más sobre cada especie!",
-      "modalTitle": "Imagen detallada del árbol"
+      "modalTitle": "Imagen detallada del árbol",
+      "co2AbsorptionRate":"Tasa de absorción de CO2 (en kg de CO2/año).",
+      "waterConsumption":"Consumo de agua (litros/día o por temporada).",
+      "thermalAbsorption":"Capacidad de absorción térmica (en porcentaje o energía absorbida en kWh)."
     },
     "mapPage": {
       "loadingMessage": "Loading...",
       "statisticsTitle": "Estadísticas",
+      "statisticsSector":"Estadísticas por Sector",
       "registeredTrees": "Árboles registrados en el mapa:",
-      "footerText": "© 2024 TreeMap NYC. Todos los derechos reservados."
+      "registeredTreesSector":"Árboles registrados por sector:",
+      "footerText": "© 2024 TreeMap Univalle. Todos los derechos reservados."
     },
     "sideNav": {
       "noSpecified": "No especificado",
       "noAvailable": "No disponible",
-      "ageLabel": "Edad estimada:",
+      "ageLabel": "Edad:",
       "years": "años",
       "foliageLabel": "Follaje:",
       "unknown": "Desconocido",
@@ -61,7 +66,16 @@
       "diameterLabel": "Diámetro:",
       "censusDateLabel": "Fecha de censo:",
       "imageAlt": "Imagen del árbol",
-      "scientificName":"Nombre Científico"
-    }
+      "scientificName":""
+    },
+      "ecologicalBenefits": {
+        "stormwaterLabel": "Conservación del Agua",
+        "valueLabel": "",
+        "energyLabel": "Reducción de la Contaminación",
+        "energyValueLabel": "",
+        "pollutantsLabel": "Mejora de la Calidad del Aire",
+        "pollutantsValueLabel": "",
+        "totalValueLabel": "Total Value of Annual Benefits"
+      }
   }
   

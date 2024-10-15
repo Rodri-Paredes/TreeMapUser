@@ -1,5 +1,5 @@
 .navbar-custom {
-    background-color: #267e3f; /* Fondo oscuro personalizado (tomado del segundo código) */
+    background-color:var(--color-secondary); /* Fondo oscuro personalizado (tomado del segundo código) */
     padding: 10px 20px; /* Espaciado extra */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil */
 }

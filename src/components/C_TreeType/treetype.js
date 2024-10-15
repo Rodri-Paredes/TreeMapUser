@@ -23,17 +23,6 @@ const TreeType = () => {
 
     return (
         <div
-            style={{
-                backgroundImage: `url('/images/f1.jpg')`,
-                backgroundSize: 'cover',
-                backgroundRepeat: 'no-repeat',
-                backgroundPosition: 'center',
-                width: '100%',
-                minHeight: '100vh',
-                position: 'relative',
-                display: 'flex',
-                flexDirection: 'column'
-            }}
         >
             <div
                 style={{
@@ -61,6 +50,9 @@ const TreeType = () => {
                                 <div className="card-body">
                                     <h5 className="card-title">{tree.commonName}</h5>
                                     <p className="card-text">{tree.description}</p>
+                                    <p className='card-text'>{messages.treeType.co2AbsorptionRate}</p>
+                                    <p className='card-text'>{messages.treeType.waterConsumption}</p>
+                                    <p className='card-text'>{messages.treeType.thermalAbsorption}</p>
                                 </div>
                                 <img
                                     src={tree.imageUrl}

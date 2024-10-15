@@ -51,13 +51,49 @@
 
 /* Footer */
 .footer {
-    background-color: #267e3f;
+    background-color: var(--color-secondary);;
     color: #ecf0f1;
     padding: 10px 20px;
     text-align: center;
     width: 100%;
     margin-top: auto;
 }
+.beneficStyle {
+    display: grid;
+    grid-template-columns: auto 1fr; /* Títulos en una columna, valores en otra */
+    gap: 10px; /* Espacio entre filas */
+    align-items: center;
+    max-width: 400px; /* Limitar el ancho si es necesario */
+    font-family: Arial, sans-serif;
+}
+
+.beneficStyle h4 {
+    grid-column: span 2; /* Título de la sección ocupa ambas columnas */
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #4D4D4D;
+    margin-bottom: 10px;
+    flex-direction: row;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.beneficStyle p {
+    display: flex;
+    justify-content: space-between; /* Distribuye el texto en los extremos */
+    font-size: 1rem;
+    margin: 5px 0;
+}
+
+.beneficStyle strong {
+    color: #4CAF50; /* Color para destacar los valores */
+}
+
+.beneficStyle p::before {
+     /* Reemplazar con la URL del ícono si es necesario */
+    margin-right: 10px; /* Espacio entre el ícono y el texto */
+}
+
 
 /* Responsividad */
 @media (max-width: 768px) {

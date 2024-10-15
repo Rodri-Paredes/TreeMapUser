@@ -29,22 +29,22 @@ function Sidenav({ tree, onClose }) {
         <Offcanvas.Title>{tree.species.commonName}</Offcanvas.Title>
       </Offcanvas.Header>
       <Offcanvas.Body>
-        <h5>{`${messages.sideNav.scientificName}: ${tree.species.scientificName || messages.sideNav.noSpecified}`}</h5>
+        <h5>{`${messages.sideNav.scientificName} ${tree.species.scientificName || messages.sideNav.noSpecified}`}</h5>
         <p>{tree.species.description || messages.sideNav.noAvailable}</p>
         <p>
-          <strong>{messages.sideNav.ageLabel}</strong>
-          {tree.dateBirth
+          {messages.sideNav.ageLabel}
+          <strong>{tree.dateBirth
             ? calculateAge(tree.dateBirth)
-            : messages.sideNav.noSpecified}
+            : messages.sideNav.noSpecified}</strong>
         </p>
-        <p><strong>{messages.sideNav.foliageLabel}</strong> {tree.species.foliage || messages.sideNav.unknown}</p>
+        <p>{messages.sideNav.foliageLabel} <strong>{tree.species.foliage || messages.sideNav.unknown}</strong></p>
         
         <hr />
 
-        <p><strong>{messages.sideNav.sectorLabel}</strong> {tree.sector.name || messages.sideNav.noSpecified}</p>
-        <p><strong>{messages.sideNav.polygonLabel}</strong> {tree.sector.polygon || messages.sideNav.noSpecified}</p>
-        <p><strong>{messages.sideNav.diameterLabel}</strong> {tree.diameter ? `${tree.diameter} cm` : messages.sideNav.noSpecified}</p>
-        <p><strong>{messages.sideNav.censusDateLabel}</strong> {tree.registerDate || messages.sideNav.noSpecified}</p>
+        <p>{messages.sideNav.sectorLabel} <strong>{tree.sector.name || messages.sideNav.noSpecified}</strong></p>
+        <p>{messages.sideNav.polygonLabel} <strong>{tree.sector.polygon || messages.sideNav.noSpecified}</strong></p>
+        <p>{messages.sideNav.diameterLabel} <strong>{tree.diameter ? `${tree.diameter} cm` : messages.sideNav.noSpecified}</strong></p>
+        <p>{messages.sideNav.censusDateLabel} <strong>{tree.registerDate || messages.sideNav.noSpecified}</strong></p>
 
         {/* Mostrar imagen del árbol si está disponible */}
         {tree.imageUrl && (
@@ -52,6 +52,7 @@ function Sidenav({ tree, onClose }) {
             <img src={tree.imageUrl} alt={tree.code} style={{ width: '100%', height: 'auto' }} />
           </div>
         )}
+
       </Offcanvas.Body>
     </Offcanvas>
   );
