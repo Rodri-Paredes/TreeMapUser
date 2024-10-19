@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "tree-map-user"
-  }
+    "default": "tree-map-user",
+    "alcaldia": "tree-map-alcaldia"
+  },
+  "targets": {},
+  "etags": {}
 }
