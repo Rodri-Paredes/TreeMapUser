@@ -138,30 +138,30 @@ function MapPage() {
                         <h4>Beneficios Ambientales</h4>
                         <p>
                             {messages.ecologicalBenefits.stormwaterLabel}
-                            <strong>959 gallons</strong>
+                            <strong></strong>
                         </p>
                         <p>
                             {messages.ecologicalBenefits.valueLabel}
-                            <strong>$9.49</strong>
+                            <strong></strong>
                         </p>
                         <p>
                             {messages.ecologicalBenefits.energyLabel}
-                            <strong>1,052 kWh</strong>
+                            <strong></strong>
                         </p>
                         <p>
                             {messages.ecologicalBenefits.energyValueLabel}
-                            <strong>$132.75</strong>
+                            <strong></strong>
                         </p>
                         <p>
                             {messages.ecologicalBenefits.pollutantsLabel}
-                            <strong>2 pounds</strong>
+                            <strong></strong>
                         </p>
                         <p>
                             {messages.ecologicalBenefits.pollutantsValueLabel}
-                            <strong>$9.28</strong>
+                            <strong></strong>
                         </p>
                         <p>
-                            <strong>{messages.ecologicalBenefits.totalValueLabel} $152.35</strong>
+                            <strong>{messages.ecologicalBenefits.totalValueLabel}</strong>
                         </p>
                     </div>
                 </div>)}
