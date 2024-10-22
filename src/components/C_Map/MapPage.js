@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { GoogleMap, useLoadScript, Marker, Polygon } from '@react-google-maps/api';
 import Sidenav from 'components/C_Sidenav/Sidenav';
 import './MapPage.css';
@@ -20,7 +20,7 @@ function getMarkerIcon(tree) {
         return null;
     }
 
-    let color= tree.species.color;
+    let color = tree.species.color;
     let size;
 
     // Definir el tamaño del marcador basado en el diámetro del árbol
@@ -47,7 +47,8 @@ function MapPage() {
     const [trees, setTrees] = useState([]);
     const [sectors, setSectors] = useState([]);
     const [selectedSector, setSelectedSector] = useState(null); // Estado para el sector seleccionado
-    const [showStats, setShowStats] = useState(true);
+    const [showStats, setShowStats] = useState(true);  // Estado de estadísticas
+    const [isMobile, setIsMobile] = useState(false);   // Estado de si es móvil
 
     useFetchTrees(setTrees, firebaseConfig);
     useFetchSectors(setSectors, firebaseConfig);
@@ -58,6 +59,31 @@ function MapPage() {
 
     // Estado para manejar la selección de un árbol en el mapa
     const [selectedTree, setSelectedTree] = useState(null);
+
+    // Detecta si la pantalla es móvil (por ejemplo, ancho < 768px)
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth <= 768);  // Define el tamaño límite para móvil
+        };
+        
+        // Ejecutar al montar el componente
+        checkMobile();
+        
+        // Agregar el event listener para cambio de tamaño
+        window.addEventListener('resize', checkMobile);
+        
+        // Limpiar el event listener al desmontar el componente
+        return () => {
+            window.removeEventListener('resize', checkMobile);
+        };
+    }, []);
+
+    // Si la vista es móvil, ocultamos las estadísticas por defecto
+    useEffect(() => {
+        if (isMobile) {
+            setShowStats(false); // Ocultar las estadísticas en móviles por defecto
+        }
+    }, [isMobile]);
 
     // Mostrar un mensaje de carga mientras se carga el mapa
     if (!isLoaded) return <div>{messages.mapPage.loadingMessage}</div>;
@@ -81,6 +107,7 @@ function MapPage() {
     const filteredTrees = selectedSector
         ? trees.filter(tree => tree.sectorId === selectedSector.id) // Filtra por ID de sector
         : trees; // Si no hay sector seleccionado, mostrar todos los árboles
+
     // Función para contar cuántos árboles hay por sector
     const countTreesBySector = (sectorId) => {
         return trees.filter((tree) => tree.sectorId === sectorId).length;
@@ -88,7 +115,7 @@ function MapPage() {
 
     return (
         <>
-           {/* Scroll con los sectores */}
+            {/* Scroll con los sectores */}
             <div className="Scroll">
                 {sectors.map((sectorItem, index) => (
                     <Button
@@ -109,18 +136,17 @@ function MapPage() {
                     </Button>
                 ))}
             </div>
+
             <div className="show-stats">
-    <Button className="btn-custom" onClick={() => setShowStats(!showStats)}>
-        {showStats ? 'Ocultar Estadísticas' : 'Mostrar Estadísticas'}
-    </Button>
-    {selectedSector && (
-        <Button className="btn-custom" onClick={() => setSelectedSector(null)}>
-            Mostrar todos los sectores
-        </Button>
-    )}
-</div>
-
-
+                <Button className="btn-custom" onClick={() => setShowStats(!showStats)}>
+                    {showStats ? 'Ocultar Estadísticas' : 'Mostrar Estadísticas'}
+                </Button>
+                {selectedSector && (
+                    <Button className="btn-custom" onClick={() => setSelectedSector(null)}>
+                        Mostrar todos los sectores
+                    </Button>
+                )}
+            </div>
 
             <div className="main-container">
                 {showStats && (<div className="statistics-container">

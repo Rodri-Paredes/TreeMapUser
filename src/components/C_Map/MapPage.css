@@ -123,7 +123,7 @@
 /* Estilos específicos para móviles */
 @media (max-width: 768px) {
     .show-stats {
-        flex-direction: column; /* Cambiar a columna en pantallas pequeñas */
+        flex-direction: row; /* Cambiar a columna en pantallas pequeñas */
         align-items: flex-start; /* Alinear los botones a la izquierda */
     }
     
