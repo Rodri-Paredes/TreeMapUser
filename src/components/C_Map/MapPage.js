@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { GoogleMap, useLoadScript, Marker, Polygon } from '@react-google-maps/api';
+import { GoogleMap, useLoadScript, Marker, Polygon, Autocomplete } from '@react-google-maps/api';
 import Sidenav from 'components/C_Sidenav/Sidenav';
 import './MapPage.css';
 import useFetchTrees from "hooks/useFetchTrees";
@@ -7,7 +7,7 @@ import firebaseConfig from "config/firebaseConfig";
 import configuration from 'config/configuration';
 import useFetchSectors from "hooks/useFetchSectors";
 import messages from 'config/messages.json';
-import { Button } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 
 const mapContainerStyle = {
     width: '100%',
@@ -49,13 +49,23 @@ function MapPage() {
     const [selectedSector, setSelectedSector] = useState(null); // Estado para el sector seleccionado
     const [showStats, setShowStats] = useState(true);  // Estado de estadísticas
     const [isMobile, setIsMobile] = useState(false);   // Estado de si es móvil
+    const [searchTerm, setSearchTerm] = useState("");
+    const [locationSearch, setLocationSearch] = useState(""); 
+    const [autocomplete, setAutocomplete] = useState(null);
+    const [showSpeciesModal, setShowSpeciesModal] = useState(false); 
+    const [selectedSpecies, setSelectedSpecies] = useState(""); 
+    const [mapCenter, setMapCenter] = useState(configuration.map.center); 
+    const [mapZoom, setMapZoom] = useState(configuration.map.zoom); 
+    const [markerPosition, setMarkerPosition] = useState(null);
 
     useFetchTrees(setTrees, firebaseConfig);
     useFetchSectors(setSectors, firebaseConfig);
 
     const { isLoaded } = useLoadScript({
-        googleMapsApiKey: configuration.map.googleMapsApiKey,  // Reemplaza con tu clave API válida
+        googleMapsApiKey: configuration.map.googleMapsApiKey,
+        libraries: ['places'], // Reemplaza con tu clave API válida
     });
+
 
     // Estado para manejar la selección de un árbol en el mapa
     const [selectedTree, setSelectedTree] = useState(null);
@@ -100,38 +110,57 @@ function MapPage() {
                 stylers: [{ visibility: "off" }] // Oculta estaciones de transporte
             },
         ],
-        disableDefaultUI: true, // Opcional: Oculta controles predeterminados como botones de zoom
+        disableDefaultUI: true, // Oculta controles predeterminados
+        gestureHandling: 'greedy' // Permite zoom sin CTRL
+    };
+    const handleLocationSearch = () => {
+        if (autocomplete) {
+            const place = autocomplete.getPlace();
+            if (place.geometry) {
+                const lat = place.geometry.location.lat();
+                const lng = place.geometry.location.lng();
+                setMapCenter({ lat, lng });
+                setMapZoom(15);
+                setMarkerPosition({ lat, lng });
+            } else {
+                alert('No se encontró la ubicación.');
+            }
+        }
     };
 
-    // Filtrar los árboles que pertenecen al sector seleccionado
-    const filteredTrees = selectedSector
-        ? trees.filter(tree => tree.sectorId === selectedSector.id) // Filtra por ID de sector
-        : trees; // Si no hay sector seleccionado, mostrar todos los árboles
 
-    // Función para contar cuántos árboles hay por sector
+    const filteredTrees = selectedSector
+        ? trees.filter(tree => tree.sectorId === selectedSector.id)
+        : trees;
+
+
     const countTreesBySector = (sectorId) => {
         return trees.filter((tree) => tree.sectorId === sectorId).length;
     };
+    const cityBounds = {
+        north: -17.3310, // Latitud norte
+        south: -17.4330, // Latitud sur
+        east: -66.0935,  // Longitud este
+        west: -66.2235   // Longitud oeste
+    };
 
     return (
         <>
-            {/* Scroll con los sectores */}
             <div className="Scroll">
                 {sectors.map((sectorItem, index) => (
                     <Button
                         key={index}
                         className="custom-button"
                         style={{
-                            color: sectorItem.color,            // Color del texto
+                            color: sectorItem.color,
                             borderColor: sectorItem.color,
                             marginRight: 10,
                             fontSize: 12,
                             minWidth: '210px'
                         }}
                         variant="outline-primary"
-                        onClick={() => setSelectedSector(sectorItem)} // Al hacer clic, selecciona el sector
+                        onClick={() => setSelectedSector(sectorItem)} 
                     >
-                        {/* Mostrar el nombre del sector y la cantidad de árboles */}
                         {sectorItem.name} ({countTreesBySector(sectorItem.id)})
                     </Button>
                 ))}
@@ -149,68 +178,65 @@ function MapPage() {
             </div>
 
             <div className="main-container">
-                {showStats && (<div className="statistics-container">
-                    <h4>{messages.mapPage.statisticsTitle}</h4>
-                    <p>
-                        {messages.mapPage.registeredTrees} <strong>{trees.length}</strong>
-                    </p>
-                    <h4>{messages.mapPage.statisticsSector}</h4>
-                    <h4>{selectedSector?.name}</h4>
-                    <p>
-                        {messages.mapPage.registeredTreesSector}
-                        <strong>{selectedSector ? countTreesBySector(selectedSector.id) : 0}</strong>
-                    </p>
-                    <div className="beneficStyle">
-                        <h4>Beneficios Ambientales</h4>
-                        <p>
-                            {messages.ecologicalBenefits.stormwaterLabel}
-                            <strong></strong>
-                        </p>
-                        <p>
-                            {messages.ecologicalBenefits.valueLabel}
-                            <strong></strong>
-                        </p>
-                        <p>
-                            {messages.ecologicalBenefits.energyLabel}
-                            <strong></strong>
-                        </p>
-                        <p>
-                            {messages.ecologicalBenefits.energyValueLabel}
-                            <strong></strong>
-                        </p>
-                        <p>
-                            {messages.ecologicalBenefits.pollutantsLabel}
-                            <strong></strong>
-                        </p>
-                        <p>
-                            {messages.ecologicalBenefits.pollutantsValueLabel}
-                            <strong></strong>
-                        </p>
-                        <p>
-                            <strong>{messages.ecologicalBenefits.totalValueLabel}</strong>
-                        </p>
-                    </div>
-                </div>)}
+{showStats && (
+    <div className="statistics-container">
+        <h3>{messages.mapPage.statisticsTitle}</h3>
+        <div className="statistic">
+            <p>{messages.mapPage.registeredTrees}</p>
+            <strong>{trees.length}</strong>
+        </div>
+        
+        <h4>{messages.mapPage.statisticsSector}</h4>
+        <p className="sector-name">{selectedSector?.name || 'Seleccione un sector'}</p>
+        <div className="statistic">
+            <p>{messages.mapPage.registeredTreesSector}</p>
+            <strong>{selectedSector ? countTreesBySector(selectedSector.id) : 0}</strong>
+        </div>
+
+        <div className="benefits-container">
+            <h4>{messages.ecologicalBenefits.title}</h4>
+            {['stormwater', 'value', 'energy', 'energyValue', 'pollutants', 'pollutantsValue', 'totalValue'].map((benefit, idx) => (
+                <div key={idx} className="benefit">
+                    <p>{messages.ecologicalBenefits[`${benefit}Label`]}</p>
+                    <strong>{/* Valor dinámico aquí */}</strong>
+                </div>
+            ))}
+        </div>
+    </div>
+)}
 
                 <div className="map-container">
+                    <div className="location-search-box">
+                        <Autocomplete
+                            onLoad={(autocompleteInstance) => {
+                                setAutocomplete(autocompleteInstance);
+                                autocompleteInstance.setBounds(new window.google.maps.LatLngBounds(
+                                    new window.google.maps.LatLng(cityBounds.south, cityBounds.west),
+                                    new window.google.maps.LatLng(cityBounds.north, cityBounds.east)
+                                ));
+                            }}
+                        >
+                            <Form.Control
+                                type="text"
+                                placeholder="Buscar ubicación..."
+                                value={locationSearch}
+                                onChange={(e) => setLocationSearch(e.target.value)}
+                            />
+                        </Autocomplete>
+                        <Button onClick={handleLocationSearch}>Buscar</Button>
+                    </div>
                     <GoogleMap
-                        mapContainerStyle={mapContainerStyle}
-                        zoom={configuration.map.zoom}
-                        center={configuration.map.center}
-                        options={mapOptions}
+                      mapContainerStyle={mapContainerStyle}
+                      zoom={mapZoom}
+                      center={mapCenter}
+                      options={mapOptions}
                     >
                         {sectors?.map((sectorItem, index) => (
-                            <Polygon
-                                key={index}
-                                paths={sectorItem.polygonPath}
-                                options={{
-                                    fillColor: sectorItem.color,
-                                    fillOpacity: 0.5,
-                                    strokeColor: sectorItem.color,
-                                    strokeOpacity: 1,
-                                    strokeWeight: 2,
-                                }}
-                            />
+                         <Polygon
+                         key={index}
+                         paths={sectorItem.polygonPath}
+                         options={{ fillColor: sectorItem.color, fillOpacity: 0.5, strokeColor: sectorItem.color }}
+                     />
                         ))}
                         {filteredTrees?.map((tree) => (
                             <Marker
@@ -220,12 +246,15 @@ function MapPage() {
                                 onClick={() => setSelectedTree(tree)}
                             />
                         ))}
+                        {markerPosition && (
+                            <Marker position={markerPosition} icon={{
+                                url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
+                            }} />
+                        )}
                     </GoogleMap>
                     {selectedTree && <Sidenav tree={selectedTree} onClose={() => setSelectedTree(null)} />}
                 </div>
             </div>
-
-            {/* Footer */}
             <footer className="footer">
                 <p>{messages.mapPage.footerText}</p>
             </footer>

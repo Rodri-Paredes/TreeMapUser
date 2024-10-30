@@ -22,6 +22,14 @@ function Sidenav({ tree, onClose }) {
 
     return `${age} ${messages.sideNav.years}`;
   };
+  const formatRegisterDate = (registerDate) => {
+    const date = new Date(registerDate);
+    return date.toLocaleDateString('es-ES', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+    });
+  };
 
   return (
     <Offcanvas className="sidenav-custom" show={true} onHide={onClose} placement="start">
@@ -30,21 +38,22 @@ function Sidenav({ tree, onClose }) {
       </Offcanvas.Header>
       <Offcanvas.Body>
         <h5>{`${messages.sideNav.scientificName} ${tree.species.scientificName || messages.sideNav.noSpecified}`}</h5>
-        <p>{tree.species.description || messages.sideNav.noAvailable}</p>
+        {/* <p>{tree.species.description || messages.sideNav.noAvailable}</p> */}
         <p>
           {messages.sideNav.ageLabel}
           <strong>{tree.dateBirth
             ? calculateAge(tree.dateBirth)
             : messages.sideNav.noSpecified}</strong>
         </p>
-        <p>{messages.sideNav.foliageLabel} <strong>{tree.species.foliage || messages.sideNav.unknown}</strong></p>
-        
-        <hr />
+        <div className='container-foliage'>
+          <p>{messages.sideNav.foliageLabel} <strong>{tree.species.foliage || messages.sideNav.unknown}</strong></p>
+          <img src="https://firebasestorage.googleapis.com/v0/b/tree-map-ae44c.appspot.com/o/foliage%2FPerenne.png?alt=media&token=a3b57f2e-2ba0-44d4-acbb-5c8375a48609" alt={tree.code} />
+        </div>
 
         <p>{messages.sideNav.sectorLabel} <strong>{tree.sector.name || messages.sideNav.noSpecified}</strong></p>
-        <p>{messages.sideNav.polygonLabel} <strong>{tree.sector.polygon || messages.sideNav.noSpecified}</strong></p>
+        {/* <p>{messages.sideNav.polygonLabel} <strong>{tree.sector.polygon || messages.sideNav.noSpecified}</strong></p> */}
         <p>{messages.sideNav.diameterLabel} <strong>{tree.diameter ? `${tree.diameter} cm` : messages.sideNav.noSpecified}</strong></p>
-        <p>{messages.sideNav.censusDateLabel} <strong>{tree.registerDate || messages.sideNav.noSpecified}</strong></p>
+        <p>{messages.sideNav.censusDateLabel} <strong>{tree.registerDate ? formatRegisterDate(tree.registerDate) : messages.sideNav.noSpecified}</strong></p>
 
         {/* Mostrar imagen del árbol si está disponible */}
         {tree.imageUrl && (
