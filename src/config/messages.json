@@ -76,6 +76,25 @@
         "pollutantsLabel": "Mejora de la Calidad del Aire",
         "pollutantsValueLabel": "",
         "totalValueLabel": "Total Value of Annual Benefits"
-      }
+      },
+      
+        "mapPage1": {
+          "communityImpactTitle": "Impacto Ambiental en la Comunidad",
+          "totalTrees": "Árboles Registrados:",
+          "sectorImpact": "Impacto en el Sector",
+          "totalTreesInSector": "Árboles en el Sector Seleccionado:",
+          "footerText": "Información proporcionada por el sistema de árboles comunitario",
+          "loadingMessage": "Cargando el mapa, por favor espera..."
+        },
+        "communityImpact": {
+          "airQualityLabel": "Calidad del aire mejorada:",
+          "shadeProvidedLabel": "Área de sombra proporcionada:",
+          "co2AbsorptionLabel": "CO₂ absorbido anualmente:",
+          "noiseReductionLabel": "Reducción de ruido:",
+          "biodiversitySupportLabel": "Especies de fauna soportadas:",
+          "totalCommunityBenefitLabel": "Beneficio total para la comunidad:"
+        }
+      
+      
   }
   

@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { GoogleMap, useLoadScript, Marker, Polygon } from '@react-google-maps/api';
+import { useState, useEffect, useRef } from "react";
+import { GoogleMap, useLoadScript, Marker, Polygon, Autocomplete } from '@react-google-maps/api';
 import Sidenav from 'components/C_Sidenav/Sidenav';
 import './MapPage.css';
 import useFetchTrees from "hooks/useFetchTrees";
@@ -7,171 +7,160 @@ import firebaseConfig from "config/firebaseConfig";
 import configuration from 'config/configuration';
 import useFetchSectors from "hooks/useFetchSectors";
 import messages from 'config/messages.json';
-import { Button } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 
 const mapContainerStyle = {
     width: '100%',
-    height: '100%',  // El mapa debe ocupar el 100% del contenedor
+    height: '100%',
 };
 
-// Función para obtener el icono del marcador basado en la especie y tamaño
+// Usamos los límites que cubren las áreas cercanas a Univalle, ajustándolos si es necesario
+const univalleBounds = {
+    north: -9.68,
+    south: -22.9,
+    east: -57.47,
+    west: -69.64
+};
+
 function getMarkerIcon(tree) {
     if (typeof window.google === 'undefined') {
         return null;
     }
 
-    let color= tree.species.color;
+    let color = tree.species.color;
     let size;
 
-    // Definir el tamaño del marcador basado en el diámetro del árbol
     if (tree.diameter < 20) {
-        size = 20; // Tamaño pequeño
+        size = 20;
     } else if (tree.diameter >= 20 && tree.diameter <= 30) {
-        size = 30; // Tamaño mediano
+        size = 30;
     } else if (tree.diameter > 30) {
-        size = 40; // Tamaño grande
+        size = 40;
     }
 
-    // Retornar un icono con el tamaño ajustado
     return {
         path: window.google.maps.SymbolPath.CIRCLE,
         fillColor: color,
         fillOpacity: 0.8,
-        scale: size / 5, // Escala ajustada para que sea visible desde lejos
+        scale: size / 5,
         strokeColor: color,
-        strokeWeight: 2, // Borde más grueso para mejor visibilidad
+        strokeWeight: 2,
     };
 }
 
 function MapPage() {
     const [trees, setTrees] = useState([]);
     const [sectors, setSectors] = useState([]);
-    const [selectedSector, setSelectedSector] = useState(null); // Estado para el sector seleccionado
+    const [selectedSector, setSelectedSector] = useState(null);
     const [showStats, setShowStats] = useState(true);
+    const mapRef = useRef(null);
 
     useFetchTrees(setTrees, firebaseConfig);
     useFetchSectors(setSectors, firebaseConfig);
 
     const { isLoaded } = useLoadScript({
-        googleMapsApiKey: configuration.map.googleMapsApiKey,  // Reemplaza con tu clave API válida
+        googleMapsApiKey: configuration.map.googleMapsApiKey,
     });
 
-    // Estado para manejar la selección de un árbol en el mapa
     const [selectedTree, setSelectedTree] = useState(null);
 
-    // Mostrar un mensaje de carga mientras se carga el mapa
     if (!isLoaded) return <div>{messages.mapPage.loadingMessage}</div>;
 
-    // Estilos de mapa para ocultar POIs como restaurantes y otros negocios
     const mapOptions = {
+        restriction: {
+            latLngBounds: univalleBounds,
+            strictBounds: true,
+        },
+        minZoom: 15,
+        maxZoom: 18,
         styles: [
             {
-                featureType: "poi", // "Points of Interest" (lugares de interés)
-                stylers: [{ visibility: "off" }] // Oculta los POI
+                featureType: "poi",
+                stylers: [{ visibility: "off" }]
             },
             {
                 featureType: "transit.station",
-                stylers: [{ visibility: "off" }] // Oculta estaciones de transporte
+                stylers: [{ visibility: "off" }]
             },
         ],
-        disableDefaultUI: true, // Opcional: Oculta controles predeterminados como botones de zoom
+        disableDefaultUI: true,
+        gestureHandling: 'greedy'
     };
 
-    // Filtrar los árboles que pertenecen al sector seleccionado
+    const handleCenterMap = () => {
+        if (mapRef.current) {
+            mapRef.current.panTo(configuration.map.center); // Centra en el punto de configuración
+            mapRef.current.setZoom(configuration.map.zoom);  // Usa el zoom de configuración
+        }
+    };
+
     const filteredTrees = selectedSector
-        ? trees.filter(tree => tree.sectorId === selectedSector.id) // Filtra por ID de sector
-        : trees; // Si no hay sector seleccionado, mostrar todos los árboles
-    // Función para contar cuántos árboles hay por sector
+        ? trees.filter(tree => tree.sectorId === selectedSector.id)
+        : trees;
+
     const countTreesBySector = (sectorId) => {
         return trees.filter((tree) => tree.sectorId === sectorId).length;
     };
 
     return (
         <>
-           {/* Scroll con los sectores */}
             <div className="Scroll">
                 {sectors.map((sectorItem, index) => (
                     <Button
                         key={index}
                         className="custom-button"
                         style={{
-                            color: sectorItem.color,            // Color del texto
+                            color: sectorItem.color,
                             borderColor: sectorItem.color,
                             marginRight: 10,
                             fontSize: 12,
                             minWidth: '210px'
                         }}
                         variant="outline-primary"
-                        onClick={() => setSelectedSector(sectorItem)} // Al hacer clic, selecciona el sector
+                        onClick={() => setSelectedSector(sectorItem)}
                     >
-                        {/* Mostrar el nombre del sector y la cantidad de árboles */}
                         {sectorItem.name} ({countTreesBySector(sectorItem.id)})
                     </Button>
                 ))}
             </div>
+
             <div className="show-stats">
-    <Button className="btn-custom" onClick={() => setShowStats(!showStats)}>
-        {showStats ? 'Ocultar Estadísticas' : 'Mostrar Estadísticas'}
-    </Button>
-    {selectedSector && (
-        <Button className="btn-custom" onClick={() => setSelectedSector(null)}>
-            Mostrar todos los sectores
-        </Button>
-    )}
-</div>
-
-
+                <Button className="btn-custom" onClick={() => setShowStats(!showStats)}>
+                    {showStats ? 'Ocultar Estadísticas' : 'Mostrar Estadísticas'}
+                </Button>
+                <Button className="btn-custom" onClick={handleCenterMap}>
+                    Centrar en Univalle
+                </Button>
+                {selectedSector && (
+                    <Button className="btn-custom" onClick={() => setSelectedSector(null)}>
+                        Mostrar todos los sectores
+                    </Button>
+                )}
+            </div>
 
             <div className="main-container">
-                {showStats && (<div className="statistics-container">
-                    <h4>{messages.mapPage.statisticsTitle}</h4>
-                    <p>
-                        {messages.mapPage.registeredTrees} <strong>{trees.length}</strong>
-                    </p>
-                    <h4>{messages.mapPage.statisticsSector}</h4>
-                    <h4>{selectedSector?.name}</h4>
-                    <p>
-                        {messages.mapPage.registeredTreesSector}
-                        <strong>{selectedSector ? countTreesBySector(selectedSector.id) : 0}</strong>
-                    </p>
-                    <div className="beneficStyle">
-                        <h4>Beneficios Ambientales</h4>
+                {showStats && (
+                    <div className="statistics-container">
+                        <h4>{messages.mapPage1.communityImpactTitle}</h4>
                         <p>
-                            {messages.ecologicalBenefits.stormwaterLabel}
-                            <strong>959 gallons</strong>
+                            {messages.mapPage1.totalTrees} <strong>{trees.length}</strong>
                         </p>
+                        <h4>{messages.mapPage1.sectorImpact}</h4>
+                        <h4>{selectedSector?.name || "Todos los Sectores"}</h4>
                         <p>
-                            {messages.ecologicalBenefits.valueLabel}
-                            <strong>$9.49</strong>
-                        </p>
-                        <p>
-                            {messages.ecologicalBenefits.energyLabel}
-                            <strong>1,052 kWh</strong>
-                        </p>
-                        <p>
-                            {messages.ecologicalBenefits.energyValueLabel}
-                            <strong>$132.75</strong>
-                        </p>
-                        <p>
-                            {messages.ecologicalBenefits.pollutantsLabel}
-                            <strong>2 pounds</strong>
-                        </p>
-                        <p>
-                            {messages.ecologicalBenefits.pollutantsValueLabel}
-                            <strong>$9.28</strong>
-                        </p>
-                        <p>
-                            <strong>{messages.ecologicalBenefits.totalValueLabel} $152.35</strong>
+                            {messages.mapPage1.totalTreesInSector} 
+                            <strong>{selectedSector ? countTreesBySector(selectedSector.id) : trees.length}</strong>
                         </p>
                     </div>
-                </div>)}
+                )}
 
                 <div className="map-container">
                     <GoogleMap
                         mapContainerStyle={mapContainerStyle}
-                        zoom={configuration.map.zoom}
-                        center={configuration.map.center}
+                        zoom={configuration.map.zoom} // Usa el zoom de configuración
+                        center={configuration.map.center} // Usa el centro de configuración
                         options={mapOptions}
+                        onLoad={(map) => (mapRef.current = map)}
                     >
                         {sectors?.map((sectorItem, index) => (
                             <Polygon
@@ -199,7 +188,6 @@ function MapPage() {
                 </div>
             </div>
 
-            {/* Footer */}
             <footer className="footer">
                 <p>{messages.mapPage.footerText}</p>
             </footer>
