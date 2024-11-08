@@ -7,13 +7,13 @@ import { initializeApp } from "firebase/app";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyBJDU_NHHumcYDpsfSSAZCWhBUb-tCl1jc",
-  authDomain: "tree-map-alcaldia.firebaseapp.com",
-  databaseURL: "https://tree-map-alcaldia-default-rtdb.firebaseio.com",
-  projectId: "tree-map-alcaldia",
-  storageBucket: "tree-map-alcaldia.appspot.com",
-  messagingSenderId: "363928218840",
-  appId: "1:363928218840:web:ebba88f21405ced4323bad"
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
 };
 
 // Initialize Firebase

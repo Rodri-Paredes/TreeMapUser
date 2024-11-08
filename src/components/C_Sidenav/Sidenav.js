@@ -39,12 +39,12 @@ function Sidenav({ tree, onClose }) {
       <Offcanvas.Body>
         <h5>{`${messages.sideNav.scientificName} ${tree.species.scientificName || messages.sideNav.noSpecified}`}</h5>
         {/* <p>{tree.species.description || messages.sideNav.noAvailable}</p> */}
-        <p>
+     {/*    <p>
           {messages.sideNav.ageLabel}
           <strong>{tree.dateBirth
             ? calculateAge(tree.dateBirth)
             : messages.sideNav.noSpecified}</strong>
-        </p>
+        </p> */}
         <div className='container-foliage'>
           <p>{messages.sideNav.foliageLabel} <strong>{tree.species.foliage || messages.sideNav.unknown}</strong></p>
           <img src="https://firebasestorage.googleapis.com/v0/b/tree-map-ae44c.appspot.com/o/foliage%2FPerenne.png?alt=media&token=a3b57f2e-2ba0-44d4-acbb-5c8375a48609" alt={tree.code} />

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { GoogleMap, useLoadScript, Marker, Polygon, Autocomplete } from '@react-google-maps/api';
 import Sidenav from 'components/C_Sidenav/Sidenav';
 import './MapPage.css';
@@ -11,10 +11,16 @@ import { Button, Form } from "react-bootstrap";
 
 const mapContainerStyle = {
     width: '100%',
-    height: '100%',  // El mapa debe ocupar el 100% del contenedor
+    height: '100%',
 };
 
-// Función para obtener el icono del marcador basado en la especie y tamaño
+const cityBounds = {
+    north: -9.68,
+    south: -22.9,
+    east: -57.47,
+    west: -69.64
+};
+
 function getMarkerIcon(tree) {
     if (typeof window.google === 'undefined') {
         return null;
@@ -23,32 +29,30 @@ function getMarkerIcon(tree) {
     let color = tree.species.color;
     let size;
 
-    // Definir el tamaño del marcador basado en el diámetro del árbol
     if (tree.diameter < 20) {
-        size = 20; // Tamaño pequeño
+        size = 20;
     } else if (tree.diameter >= 20 && tree.diameter <= 30) {
-        size = 30; // Tamaño mediano
+        size = 30;
     } else if (tree.diameter > 30) {
-        size = 40; // Tamaño grande
+        size = 40;
     }
 
-    // Retornar un icono con el tamaño ajustado
     return {
         path: window.google.maps.SymbolPath.CIRCLE,
         fillColor: color,
         fillOpacity: 0.8,
-        scale: size / 5, // Escala ajustada para que sea visible desde lejos
+        scale: size / 5,
         strokeColor: color,
-        strokeWeight: 2, // Borde más grueso para mejor visibilidad
+        strokeWeight: 2,
     };
 }
 
 function MapPage() {
     const [trees, setTrees] = useState([]);
     const [sectors, setSectors] = useState([]);
-    const [selectedSector, setSelectedSector] = useState(null); // Estado para el sector seleccionado
-    const [showStats, setShowStats] = useState(true);  // Estado de estadísticas
-    const [isMobile, setIsMobile] = useState(false);   // Estado de si es móvil
+    const [selectedSector, setSelectedSector] = useState(null);
+    const [showStats, setShowStats] = useState(true);
+    const [isMobile, setIsMobile] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
     const [locationSearch, setLocationSearch] = useState(""); 
     const [autocomplete, setAutocomplete] = useState(null);
@@ -63,56 +67,55 @@ function MapPage() {
 
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: configuration.map.googleMapsApiKey,
-        libraries: ['places'], // Reemplaza con tu clave API válida
+        libraries: ['places'],
     });
 
-
-    // Estado para manejar la selección de un árbol en el mapa
     const [selectedTree, setSelectedTree] = useState(null);
+    const mapRef = useRef(); // Reference to the GoogleMap component
 
-    // Detecta si la pantalla es móvil (por ejemplo, ancho < 768px)
     useEffect(() => {
         const checkMobile = () => {
-            setIsMobile(window.innerWidth <= 768);  // Define el tamaño límite para móvil
+            setIsMobile(window.innerWidth <= 768);
         };
         
-        // Ejecutar al montar el componente
         checkMobile();
         
-        // Agregar el event listener para cambio de tamaño
         window.addEventListener('resize', checkMobile);
         
-        // Limpiar el event listener al desmontar el componente
         return () => {
             window.removeEventListener('resize', checkMobile);
         };
     }, []);
 
-    // Si la vista es móvil, ocultamos las estadísticas por defecto
     useEffect(() => {
         if (isMobile) {
-            setShowStats(false); // Ocultar las estadísticas en móviles por defecto
+            setShowStats(false);
         }
     }, [isMobile]);
 
-    // Mostrar un mensaje de carga mientras se carga el mapa
     if (!isLoaded) return <div>{messages.mapPage.loadingMessage}</div>;
 
-    // Estilos de mapa para ocultar POIs como restaurantes y otros negocios
     const mapOptions = {
+        restriction: {
+            latLngBounds: cityBounds,
+            strictBounds: true,
+        },
+        minZoom: 12,
+        maxZoom: 18,
         styles: [
             {
-                featureType: "poi", // "Points of Interest" (lugares de interés)
-                stylers: [{ visibility: "off" }] // Oculta los POI
+                featureType: "poi",
+                stylers: [{ visibility: "off" }]
             },
             {
                 featureType: "transit.station",
-                stylers: [{ visibility: "off" }] // Oculta estaciones de transporte
+                stylers: [{ visibility: "off" }]
             },
         ],
-        disableDefaultUI: true, // Oculta controles predeterminados
-        gestureHandling: 'greedy' // Permite zoom sin CTRL
-    };
+        disableDefaultUI: true,
+        gestureHandling: 'greedy'
+    };
+
     const handleLocationSearch = () => {
         if (autocomplete) {
             const place = autocomplete.getPlace();
@@ -128,21 +131,20 @@ function MapPage() {
         }
     };
 
+    const handleCenterMap = () => {
+        if (mapRef.current) {
+            mapRef.current.panTo(configuration.map.center); // Move the map to the center
+            mapRef.current.setZoom(configuration.map.zoom);  // Set the zoom level
+        }
+    };
 
     const filteredTrees = selectedSector
         ? trees.filter(tree => tree.sectorId === selectedSector.id)
         : trees;
 
-
     const countTreesBySector = (sectorId) => {
         return trees.filter((tree) => tree.sectorId === sectorId).length;
     };
-    const cityBounds = {
-        north: -17.3310, // Latitud norte
-        south: -17.4330, // Latitud sur
-        east: -66.0935,  // Longitud este
-        west: -66.2235   // Longitud oeste
-    };
 
     return (
         <>
@@ -192,16 +194,6 @@ function MapPage() {
             <p>{messages.mapPage.registeredTreesSector}</p>
             <strong>{selectedSector ? countTreesBySector(selectedSector.id) : 0}</strong>
         </div>
-
-        <div className="benefits-container">
-            <h4>{messages.ecologicalBenefits.title}</h4>
-            {['stormwater', 'value', 'energy', 'energyValue', 'pollutants', 'pollutantsValue', 'totalValue'].map((benefit, idx) => (
-                <div key={idx} className="benefit">
-                    <p>{messages.ecologicalBenefits[`${benefit}Label`]}</p>
-                    <strong>{/* Valor dinámico aquí */}</strong>
-                </div>
-            ))}
-        </div>
     </div>
 )}
 
@@ -225,11 +217,15 @@ function MapPage() {
                         </Autocomplete>
                         <Button onClick={handleLocationSearch}>Buscar</Button>
                     </div>
+                    <Button className="center-button" onClick={handleCenterMap}>
+                        Centrar
+                    </Button>
                     <GoogleMap
                       mapContainerStyle={mapContainerStyle}
                       zoom={mapZoom}
                       center={mapCenter}
                       options={mapOptions}
+                      onLoad={(map) => (mapRef.current = map)} // Set reference to the map
                     >
                         {sectors?.map((sectorItem, index) => (
                          <Polygon

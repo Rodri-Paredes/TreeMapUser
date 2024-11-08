@@ -20,8 +20,6 @@ const useFetchSectors = (setSectors, config) => {
                     color: value.color
                 }));
             }
-
-            console.log("Datos de sectores:", sectorsArray);
             setSectors(sectorsArray); // Actualizar el estado con los sectores
         }, (error) => {
             console.error("Error al obtener los datos de sectores:", error);

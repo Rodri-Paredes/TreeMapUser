@@ -62,8 +62,6 @@ const useFetchTrees = (setTrees, config) => {
                                 sector: sectorArray[tree.sectorId] || undefined,   // Asignar el objeto de sector o undefined
                             };
                         });
-
-                        console.log("Datos de árboles con especies y sectores:", displayItem);
                         setTrees(displayItem); // Actualizar el estado con árboles incluyendo info de especies y sectores
                     } else {
                         console.log("No se encontraron árboles.");
