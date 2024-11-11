@@ -14,11 +14,11 @@ const mapContainerStyle = {
     height: '100%',
 };
 
-const cityBounds = {
-    north: -9.68,
-    south: -22.9,
-    east: -57.47,
-    west: -69.64
+const cochabambaBounds = {
+    north: -17.285,
+    south: -17.441,
+    east: -66.070,
+    west: -66.325
 };
 
 function getMarkerIcon(tree) {
@@ -71,7 +71,7 @@ function MapPage() {
     });
 
     const [selectedTree, setSelectedTree] = useState(null);
-    const mapRef = useRef(); // Reference to the GoogleMap component
+    const mapRef = useRef();
 
     useEffect(() => {
         const checkMobile = () => {
@@ -97,7 +97,7 @@ function MapPage() {
 
     const mapOptions = {
         restriction: {
-            latLngBounds: cityBounds,
+            latLngBounds: cochabambaBounds,
             strictBounds: true,
         },
         minZoom: 12,
@@ -122,9 +122,18 @@ function MapPage() {
             if (place.geometry) {
                 const lat = place.geometry.location.lat();
                 const lng = place.geometry.location.lng();
-                setMapCenter({ lat, lng });
-                setMapZoom(15);
-                setMarkerPosition({ lat, lng });
+                if (
+                    lat <= cochabambaBounds.north &&
+                    lat >= cochabambaBounds.south &&
+                    lng <= cochabambaBounds.east &&
+                    lng >= cochabambaBounds.west
+                ) {
+                    setMapCenter({ lat, lng });
+                    setMapZoom(15);
+                    setMarkerPosition({ lat, lng });
+                } else {
+                    alert('La ubicación seleccionada no está dentro de Cochabamba.');
+                }
             } else {
                 alert('No se encontró la ubicación.');
             }
@@ -133,8 +142,8 @@ function MapPage() {
 
     const handleCenterMap = () => {
         if (mapRef.current) {
-            mapRef.current.panTo(configuration.map.center); // Move the map to the center
-            mapRef.current.setZoom(configuration.map.zoom);  // Set the zoom level
+            mapRef.current.panTo(configuration.map.center);
+            mapRef.current.setZoom(configuration.map.zoom);
         }
     };
 
@@ -180,22 +189,22 @@ function MapPage() {
             </div>
 
             <div className="main-container">
-{showStats && (
-    <div className="statistics-container">
-        <h3>{messages.mapPage.statisticsTitle}</h3>
-        <div className="statistic">
-            <p>{messages.mapPage.registeredTrees}</p>
-            <strong>{trees.length}</strong>
-        </div>
-        
-        <h4>{messages.mapPage.statisticsSector}</h4>
-        <p className="sector-name">{selectedSector?.name || 'Seleccione un sector'}</p>
-        <div className="statistic">
-            <p>{messages.mapPage.registeredTreesSector}</p>
-            <strong>{selectedSector ? countTreesBySector(selectedSector.id) : 0}</strong>
-        </div>
-    </div>
-)}
+            {showStats && (
+                <div className="statistics-container">
+                    <h3>{messages.mapPage.statisticsTitle}</h3>
+                    <div className="statistic">
+                        <p>{messages.mapPage.registeredTrees}</p>
+                        <strong>{trees.length}</strong>
+                    </div>
+                    
+                    <h4>{messages.mapPage.statisticsSector}</h4>
+                    <p className="sector-name">{selectedSector?.name || 'Seleccione un sector'}</p>
+                    <div className="statistic">
+                        <p>{messages.mapPage.registeredTreesSector}</p>
+                        <strong>{selectedSector ? countTreesBySector(selectedSector.id) : 0}</strong>
+                    </div>
+                </div>
+            )}
 
                 <div className="map-container">
                     <div className="location-search-box">
@@ -203,9 +212,12 @@ function MapPage() {
                             onLoad={(autocompleteInstance) => {
                                 setAutocomplete(autocompleteInstance);
                                 autocompleteInstance.setBounds(new window.google.maps.LatLngBounds(
-                                    new window.google.maps.LatLng(cityBounds.south, cityBounds.west),
-                                    new window.google.maps.LatLng(cityBounds.north, cityBounds.east)
+                                    new window.google.maps.LatLng(cochabambaBounds.south, cochabambaBounds.west),
+                                    new window.google.maps.LatLng(cochabambaBounds.north, cochabambaBounds.east)
                                 ));
+                                autocompleteInstance.setComponentRestrictions({
+                                    country: "BO" // Limitar a Bolivia
+                                });
                             }}
                         >
                             <Form.Control
@@ -225,7 +237,7 @@ function MapPage() {
                       zoom={mapZoom}
                       center={mapCenter}
                       options={mapOptions}
-                      onLoad={(map) => (mapRef.current = map)} // Set reference to the map
+                      onLoad={(map) => (mapRef.current = map)}
                     >
                         {sectors?.map((sectorItem, index) => (
                          <Polygon
