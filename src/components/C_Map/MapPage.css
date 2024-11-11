@@ -46,12 +46,45 @@
 .map-container {
     flex: 1; /* Ocupa el resto del espacio disponible */
     height: 100%;
-    position: relative;
+    position: relative; /* Permite que los elementos dentro se posicionen en relación a este */
+}
+
+/* Estilo del buscador */
+.location-search-box {
+    position: absolute; /* Permite que se posicione sobre el mapa */
+    top: 10px; /* Distancia desde la parte superior del mapa */
+    right: 10px; /* Distancia desde la derecha del mapa */
+    display: flex; /* Permite que el input y el botón estén en una fila */
+    align-items: center; /* Centra verticalmente los elementos */
+    z-index: 10; /* Asegura que el buscador esté encima de otros elementos */
+}
+
+.location-search-box input {
+    flex: 1; /* Hace que el input tome todo el espacio disponible */
+    padding: 0.5rem; /* Espaciado interno */
+    border: 1px solid #ccc; /* Borde gris claro */
+    border-radius: 4px; /* Bordes redondeados */
+    font-size: 1rem; /* Tamaño de fuente */
+}
+
+.location-search-box button {
+    margin-left: 0.5rem; /* Espaciado entre el input y el botón */
+    padding: 0.5rem 1rem; /* Espaciado interno */
+    background-color: #007bff; /* Color de fondo azul */
+    color: white; /* Color de texto blanco */
+    border: none; /* Sin borde */
+    border-radius: 4px; /* Bordes redondeados */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    transition: background-color 0.3s; /* Transición para el color de fondo */
+}
+
+.location-search-box button:hover {
+    background-color: #0056b3; /* Color de fondo al pasar el mouse */
 }
 
 /* Footer */
 .footer {
-    background-color: var(--color-secondary);;
+    background-color: var(--color-secondary);
     color: #ecf0f1;
     padding: 10px 20px;
     text-align: center;
@@ -131,7 +164,6 @@
         font-size: 0.9rem; /* Reducir tamaño de fuente en móviles */
     }
 }
-
 
 /* Responsividad */
 @media (max-width: 768px) {
