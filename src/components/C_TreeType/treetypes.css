@@ -1,112 +1,109 @@
-/* Estilos del carrusel */
-.carousel-item img {
-    filter: brightness(0.5); /* Aclara las imágenes del carrusel */
-    height: 100vh; /* Asegura que el carrusel ocupe toda la altura de la ventana */
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f8ff;
+    margin: 0;
+    padding: 0;
 }
 
-/* Estilo del carrusel */
-.carousel {
-    position: relative; /* Asegura que el carrusel esté en el flujo del documento */
-    z-index: -1; /* Coloca el carrusel detrás de otros elementos */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
-/* Superposición sobre el carrusel */
-.overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(255, 255, 255, 0.5); /* Fondo blanco semitransparente */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    z-index: 10; /* Asegura que la superposición esté en la parte superior */
-    padding: 20px; /* Espaciado dentro de la superposición */
+h2 {
+    font-size: 2.5rem;
+    color: #2c3e50;
 }
 
 .welcome-description {
-    font-size: 16px;
-    color: var(--color-primary);  /* Azul oscuro */
-    margin-bottom: 20px; /* Espacio inferior */
+    font-size: 1.2rem;
+    color: #34495e;
+    margin-bottom: 40px;
 }
 
-/* Estilos para los elementos de la lista de tipos de árbol */
-.list-group-item {
-    display: flex; /* Usar flexbox para alinear los elementos */
-    align-items: center; /* Alinear verticalmente */
-    padding: 15px; /* Espaciado */
-    margin-bottom: 10px; /* Espacio inferior entre elementos */
-    color: var(--color-desc); /* Texto negro para cada elemento de la lista */
-}
-
-.image-container {
-    display: flex;
-    justify-content: center; /* Centra la imagen horizontalmente */
-    flex: 1; /* Permite que el contenedor de la imagen ocupe el espacio disponible */
-}
-
-.tree-image {
-    width: 80px; /* Ajusta el tamaño según necesites */
-    height: 80px; /* Ajusta el tamaño según necesites */
-    object-fit: cover; /* Asegura que la imagen mantenga su proporción */
-}
-
-/* Colores para los tipos de árbol */
-.green {
-    background-color: rgba(36, 150, 40, 0.719); /* Verde claro */
-}
-
-.brown {
-    background-color: rgba(139, 69, 19, 0.719); /* Marrón claro */
-}
-
-.blue {
-    background-color: rgba(70, 130, 180, 0.719); /* Azul claro */
-}
-.pink {
-    background-color: rgba(197, 59, 112, 0.719); /* Azul claro */
-}
-.yellow
-{
-    background-color: rgba(255, 170, 43, 0.719);
-}
-
-
-/* Asegurar que el texto en las tarjetas sea negro */
+/* Estilos para las tarjetas */
 .card {
-    color: var(--color-desc); /* Texto negro para las tarjetas */
+    display: flex;
+    flex-direction: row; /* Alinea la imagen y el texto horizontalmente */
+    justify-content: center; /* Centra el contenido de la tarjeta */
+    align-items: center; /* Centra verticalmente la imagen con el texto */
+    border: none;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    border-radius: 15px;
+    margin-bottom: 20px; /* Añade espacio entre las tarjetas */
 }
 
-/* Estilos para el texto dentro de las tarjetas */
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card-body {
+    padding: 10px; /* Reduce el padding */
+    text-align: center; /* Centra el texto */
+    flex: 1; /* El texto ocupa el resto del espacio */
+}
+
 .card-title {
-    font-size: 1.25rem; /* Tamaño de fuente para el título de la tarjeta */
-    margin-bottom: 10px; /* Espacio inferior del título */
+    font-size: 1.2rem; /* Reduce el tamaño del título */
+    color: #26cc10;
+    margin-bottom: 10px; /* Ajusta el margen */
 }
 
 .card-text {
-    font-size: 0.9rem; /* Tamaño de fuente para el texto de la tarjeta */
-    color: var(--color-desc);
+    font-size: 0.9rem; /* Reduce el tamaño del texto de la descripción */
+    color: #000000;
 }
 
-/* Espaciado adicional para las tarjetas */
-.card-body {
-    padding: 15px; /* Espaciado interior en las tarjetas */
-}
-h2{
-    color: var(--color-primary);
-}
-.card-img-top {
-    transition: transform 0.3s, box-shadow 0.3s; /* Animación de transformación y sombra */
-    object-fit: contain;
+/* Estilos para las imágenes de los árboles */
+.tree-image {
+    width: 120px; /* Tamaño fijo más pequeño para la imagen */
+    height: 120px;
+    object-fit: cover;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+    margin-right: 20px; /* Espacio entre la imagen y el texto */
 }
 
-.card-img-top:hover {
-    transform: scale(1.1); /* Zoom de 10% */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); /* Sombra al pasar el ratón */
+.tree-image:hover {
+    transform: scale(1.02);
 }
-.modal-content {
-    border-radius: 0.5rem;
-    z-index: 20; 
+
+/* Estilo para organizar las tarjetas en dos columnas */
+.row {
+    display: flex;
+    flex-wrap: wrap; /* Permite que las tarjetas se distribuyan en filas */
+    gap: 20px; /* Espacio entre las tarjetas */
+}
+
+.col-md-6 {
+    flex: 0 0 calc(50% - 20px); /* Dos columnas con espacio */
+    box-sizing: border-box;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    .card {
+        flex-direction: column; /* Cambia a columna en pantallas pequeñas */
+        width: 100%; /* Aumenta el ancho en pantallas pequeñas */
+    }
+
+    .tree-image {
+        width: 100%;
+        height: auto;
+        margin-right: 0; /* Quita el margen cuando se apila */
+        border-radius: 15px 15px 0 0;
+    }
+
+    .card-body {
+        text-align: center; /* Asegura que el texto esté centrado en pantallas pequeñas */
+    }
+
+    .col-md-6 {
+        flex: 0 0 100%; /* Una columna en pantallas pequeñas */
+    }
 }
