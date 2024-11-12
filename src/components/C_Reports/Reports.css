@@ -16,7 +16,7 @@
     max-width: 800px
 }
 .btn-custom1 {
-    background-color: #4CAF50; /* Color de fondo verde */
+    background-color: var(--color-secondary); /* Color de fondo verde */
     color: white; /* Color de texto */
     padding: 10px 20px; /* Espaciado interno */
     font-size: 1.1rem; /* Tamaño de fuente más grande */
@@ -31,11 +31,11 @@
 }
 
 .btn-custom1:hover {
-    background-color: #45a049; /* Color de fondo en hover */
+    background-color: var(--color-secondary);; /* Color de fondo en hover */
     transform: scale(1.05); /* Agranda el botón al hacer hover */
 }
 
 .btn-custom1:active {
-    background-color: #3e8e41; /* Color más oscuro cuando se presiona */
+    background-color: var(--color-secondary);; /* Color más oscuro cuando se presiona */
     transform: scale(0.98); /* Ligeramente más pequeño cuando se presiona */
 }
