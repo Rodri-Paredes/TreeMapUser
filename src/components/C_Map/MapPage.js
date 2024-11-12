@@ -8,6 +8,7 @@ import configuration from 'config/configuration';
 import useFetchSectors from "hooks/useFetchSectors";
 import messages from 'config/messages.json';
 import { Button, Form } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const mapContainerStyle = {
     width: '100%',
@@ -186,8 +187,12 @@ function MapPage() {
                         Mostrar todos los sectores
                     </Button>
                 )}
+                <Button className="btn-custom">
+                    <Link to="/reports" style={{ textDecoration: 'none', color: 'inherit' }}>
+                        Mostrar Reportes
+                    </Link>
+                </Button>
             </div>
-
             <div className="main-container">
             {showStats && (
                 <div className="statistics-container">
