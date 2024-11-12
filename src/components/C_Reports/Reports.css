@@ -1,41 +1,65 @@
+/* Estilos para los contenedores de gráficos */
 .pie-chart-container, .bar-chart-container {
-    width: 20%; /* Asegura que el gráfico ocupe todo el ancho disponible */
+    width: 100%; /* Asegura que el gráfico ocupe todo el ancho disponible */
     max-width: 500px; /* Limita el ancho máximo de los gráficos */
     margin: 20px auto; /* Centra el gráfico y agrega margen superior e inferior */
     padding: 10px; /* Espaciado dentro del contenedor */
 }
 
 /* Ajuste adicional para los gráficos */
-.pie-chart-container canvas{
+.pie-chart-container canvas,
+.bar-chart-container canvas {
     width: 100% !important; /* Asegura que el gráfico ocupe todo el espacio disponible */
     height: auto !important; /* Ajusta la altura proporcionalmente */
 }
 
-/* Si deseas cambiar el tamaño del gráfico de barras específicamente */
-.bar-chart-container {
-    max-width: 800px
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    .pie-chart-container, .bar-chart-container {
+        max-width: 400px; /* Reduce el ancho máximo en pantallas medianas */
+        padding: 8px; /* Reduce el espaciado interno */
+    }
+
+    .btn-custom1 {
+        font-size: 1rem; /* Reduce el tamaño de fuente del botón en pantallas medianas */
+        padding: 8px 16px; /* Ajusta el espaciado interno del botón */
+    }
 }
+
+@media (max-width: 480px) {
+    .pie-chart-container, .bar-chart-container {
+        max-width: 100%; /* Ocupa todo el ancho en pantallas pequeñas */
+        padding: 5px; /* Reduce aún más el espaciado */
+    }
+
+    .btn-custom1 {
+        font-size: 0.9rem; /* Reduce el tamaño de fuente del botón en pantallas pequeñas */
+        padding: 6px 12px; /* Ajusta el espaciado interno del botón */
+    }
+}
+
+/* Estilos del botón personalizado */
 .btn-custom1 {
-    background-color: var(--color-secondary); /* Color de fondo verde */
+    background-color: var(--color-secondary); /* Color de fondo */
     color: white; /* Color de texto */
     padding: 10px 20px; /* Espaciado interno */
-    font-size: 1.1rem; /* Tamaño de fuente más grande */
+    font-size: 1.1rem; /* Tamaño de fuente */
     border: none; /* Sin bordes */
     border-radius: 5px; /* Bordes redondeados */
     cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
     transition: background-color 0.3s ease, transform 0.2s ease; /* Efectos de transición */
     margin: 15px auto; /* Centrado horizontal */
-    display: block; /* Para centrar y ocupar una línea completa */
+    display: block; /* Centrado y línea completa */
     width: fit-content; /* Ajusta el ancho al contenido */
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para destacar */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
 }
 
 .btn-custom1:hover {
-    background-color: var(--color-secondary);; /* Color de fondo en hover */
+    background-color: var(--color-secondary-hover); /* Cambia el color en hover */
     transform: scale(1.05); /* Agranda el botón al hacer hover */
 }
 
 .btn-custom1:active {
-    background-color: var(--color-secondary);; /* Color más oscuro cuando se presiona */
+    background-color: var(--color-secondary-active); /* Color cuando se presiona */
     transform: scale(0.98); /* Ligeramente más pequeño cuando se presiona */
 }

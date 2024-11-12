@@ -1,4 +1,5 @@
 /* Sidenav.css */
+
 .sidenav-custom {
     background-color:var(--coor-desc); /* Fondo oscuro elegante */
     color: var(--color-desc);/* Texto claro */
@@ -23,7 +24,6 @@
   .sidenav-custom h5 {
     font-size: 20px;
     margin-bottom: 10px;
-
   }
   
   .sidenav-custom p {
@@ -38,6 +38,7 @@
   .sidenav-custom .btn-close {
     filter: invert(1); /* Cambia el color del botón de cierre a blanco */
   }
+
   .container-foliage {
     display: flex;
     align-items: center;
@@ -55,3 +56,26 @@
     margin: 0;
   }
   
+
+
+/* Estilos para la sección de estadísticas ambientales */
+.species-statistics {
+  border-radius: 8px;
+  padding: 15px;
+  margin-top: 20px;
+}
+
+.species-statistics h4 {
+  font-size: 22px;
+  color: var(--color-h5);
+  margin-bottom: 10px;
+}
+
+.species-statistics  {
+  color: var(--color-h5); /* Color para los datos */
+}
+.species-statistics p {
+  color: var(--color-tercy); /* Cambia el color del texto a verde */
+  font-size: 16px;
+  margin-bottom: 8px;
+}
