@@ -4,7 +4,6 @@ import './Sidenav.css';  // Importa el archivo CSS
 import messages from 'config/messages.json';
 
 function Sidenav({ tree, onClose }) {
-  console.log(tree);
   
   const calculateAge = (dateBirth) => {
     if (!dateBirth) return messages.sideNav.noSpecified;

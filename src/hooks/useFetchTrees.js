@@ -63,7 +63,6 @@ const useFetchTrees = (setTrees, config) => {
                             };
                         });
 
-                        console.log("Datos de árboles con especies y sectores:", displayItem);
                         setTrees(displayItem); // Actualizar el estado con árboles incluyendo info de especies y sectores
                     } else {
                         console.log("No se encontraron árboles.");

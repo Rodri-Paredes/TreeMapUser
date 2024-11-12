@@ -23,7 +23,6 @@ const useFetchSpecies = (setSpecies, config) => {
                 }));
             }
 
-            console.log("Datos de especies:", speciesArray);
             setSpecies(speciesArray); // Actualizar el estado con las especies
         }, (error) => {
             console.error("Error al obtener los datos de especies:", error);

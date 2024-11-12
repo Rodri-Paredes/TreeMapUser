@@ -1,41 +1,66 @@
+/* Contenedores de gráficos */
 .pie-chart-container, .bar-chart-container {
-    width: 20%; /* Asegura que el gráfico ocupe todo el ancho disponible */
-    max-width: 500px; /* Limita el ancho máximo de los gráficos */
+    width: 100%; /* Asegura que el gráfico ocupe todo el ancho disponible */
+    max-width: 500px; /* Limita el ancho máximo de los gráficos en pantallas grandes */
     margin: 20px auto; /* Centra el gráfico y agrega margen superior e inferior */
     padding: 10px; /* Espaciado dentro del contenedor */
+    box-sizing: border-box; /* Incluye padding en el ancho total */
 }
 
 /* Ajuste adicional para los gráficos */
-.pie-chart-container canvas{
+.pie-chart-container canvas, .bar-chart-container canvas {
     width: 100% !important; /* Asegura que el gráfico ocupe todo el espacio disponible */
     height: auto !important; /* Ajusta la altura proporcionalmente */
 }
 
-/* Si deseas cambiar el tamaño del gráfico de barras específicamente */
-.bar-chart-container {
-    max-width: 800px
-}
+/* Estilos específicos para el botón de descarga */
 .btn-custom1 {
-    background-color: var(--color-secondary); /* Color de fondo verde */
-    color: white; /* Color de texto */
-    padding: 10px 20px; /* Espaciado interno */
-    font-size: 1.1rem; /* Tamaño de fuente más grande */
-    border: none; /* Sin bordes */
-    border-radius: 5px; /* Bordes redondeados */
-    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
-    transition: background-color 0.3s ease, transform 0.2s ease; /* Efectos de transición */
-    margin: 15px auto; /* Centrado horizontal */
-    display: block; /* Para centrar y ocupar una línea completa */
-    width: fit-content; /* Ajusta el ancho al contenido */
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para destacar */
+    background-color: var(--color-secondary);
+    color: white;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin: 15px auto;
+    display: block;
+    width: fit-content;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .btn-custom1:hover {
-    background-color: var(--color-secondary);; /* Color de fondo en hover */
-    transform: scale(1.05); /* Agranda el botón al hacer hover */
+    background-color: var(--color-secondary-hover);
+    transform: scale(1.05);
 }
 
 .btn-custom1:active {
-    background-color: var(--color-secondary);; /* Color más oscuro cuando se presiona */
-    transform: scale(0.98); /* Ligeramente más pequeño cuando se presiona */
+    background-color: var(--color-secondary-active);
+    transform: scale(0.98);
+}
+
+/* Responsividad para pantallas medianas y pequeñas */
+@media (max-width: 768px) {
+    .pie-chart-container, .bar-chart-container {
+        max-width: 100%; /* Ocupa todo el ancho en pantallas pequeñas */
+        padding: 5px; /* Reduce el padding */
+    }
+
+    .btn-custom1 {
+        font-size: 0.9rem; /* Ajusta el tamaño del texto del botón */
+        padding: 8px 16px; /* Reduce el padding del botón */
+    }
+}
+
+/* Responsividad para pantallas muy pequeñas */
+@media (max-width: 480px) {
+    .pie-chart-container, .bar-chart-container {
+        max-width: 100%; /* Usa todo el ancho disponible */
+        margin: 10px 0; /* Reduce el margen */
+    }
+
+    .btn-custom1 {
+        font-size: 0.8rem; /* Disminuye el tamaño de fuente en el botón */
+        padding: 6px 12px; /* Ajusta el padding para pantallas muy pequeñas */
+    }
 }
