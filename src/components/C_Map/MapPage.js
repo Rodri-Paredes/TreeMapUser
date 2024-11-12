@@ -15,10 +15,10 @@ const mapContainerStyle = {
 };
 
 const cochabambaBounds = {
-    north: -17.285,
-    south: -17.441,
-    east: -66.070,
-    west: -66.325
+    north: -16.98,   // Limite norte general de la región de Cochabamba
+    south: -18.42,   // Limite sur general de la región de Cochabamba
+    east: -65.13,    // Limite este general de la región de Cochabamba
+    west: -67.15     // Limite oeste general de la región de Cochabamba
 };
 
 function getMarkerIcon(tree) {
