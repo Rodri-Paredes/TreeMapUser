@@ -3,11 +3,11 @@
       "title": "Acerca de Nosotros",
       "project": {
         "header": "Acerca del Proyecto",
-        "description": "Somos un grupo comprometido con la mejora de los métodos de censo de árboles para el GAC (Grupo de Acción Comunitaria). Nuestro sistema está diseñado para censar y monitorizar los árboles de forma eficiente, comenzando con los ubicados en Univalle Tiquipaya..."
+        "description": "Somos un grupo comprometido con la mejora de los métodos de censo de árboles para el GAC (Grupo de Acción Comunitaria). Nuestro sistema está diseñado para censar y monitorizar los árboles de forma eficiente, comenzando con los ubicados en La Ciudad de Cochabamba..."
       },
       "mission": {
         "header": "Misión",
-        "description": "Nuestra misión es proporcionar al GAC una herramienta tecnológica que facilite el censo y seguimiento de los árboles de Univalle Tiquipaya..."
+        "description": "Nuestra misión es proporcionar al GAC una herramienta tecnológica que facilite el censo y seguimiento de los árboles de Cochabamba..."
       },
       "vision": {
         "header": "Visión",
@@ -20,14 +20,15 @@
       "technologies": {
         "header": "Tecnologías Utilizadas",
         "items": [
-          "Leaflet.js",
-          "React.js"
+          "Leaflet",
+          "React",
+          "Firebase"
         ]
       },
       "objectives": {
         "header": "Objetivos del Proyecto",
         "items": [
-          "Desarrollar un sistema eficiente para el censo de árboles en Univalle Tiquipaya.",
+          "Desarrollar un sistema eficiente para el censo de árboles en Cochabamba.",
           "Facilitar la toma de decisiones sobre el cuidado y conservación de árboles."
         ]
       }
@@ -52,7 +53,7 @@
       "statisticsSector":"Estadísticas por Sector",
       "registeredTrees": "Árboles registrados en el mapa:",
       "registeredTreesSector":"Árboles registrados por sector:",
-      "footerText": "© 2024 TreeMap Univalle. Todos los derechos reservados."
+      "footerText": "© 2024 TreeMap. Todos los derechos reservados."
     },
     "sideNav": {
       "noSpecified": "No especificado",

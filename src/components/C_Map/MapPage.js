@@ -314,7 +314,7 @@ function MapPage() {
                          <Polygon
                          key={index}
                          paths={sectorItem.polygonPath}
-                         options={{ fillColor: sectorItem.color, fillOpacity: 0.5, strokeColor: sectorItem.color }}
+                         options={{ fillColor: sectorItem.color, fillOpacity: 0.1, strokeColor: sectorItem.color }}
                      />
                         ))}
                         {filteredTrees?.map((tree) => (
