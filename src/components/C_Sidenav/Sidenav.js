@@ -28,14 +28,14 @@ function Sidenav({ tree, onClose }) {
         <Offcanvas.Title>{tree.species.commonName}</Offcanvas.Title>
       </Offcanvas.Header>
       <Offcanvas.Body>
-        <h5>{`${messages.sideNav.scientificName} ${tree.species.scientificName || messages.sideNav.noSpecified}`}</h5>
-        <p>{tree.species.description || messages.sideNav.noAvailable}</p>
-        <p>
+        {/* <h5>{`${messages.sideNav.scientificName} ${tree.species.scientificName || messages.sideNav.noSpecified}`}</h5> */}
+        {/* <p>{tree.species.description || messages.sideNav.noAvailable}</p> */}
+ {/*        <p>
           {messages.sideNav.ageLabel}
           <strong>{tree.dateBirth
             ? calculateAge(tree.dateBirth)
             : messages.sideNav.noSpecified}</strong>
-        </p>
+        </p> */}
         <p>{messages.sideNav.foliageLabel} <strong>{tree.species.foliage || messages.sideNav.unknown}</strong></p>
         
         <hr />

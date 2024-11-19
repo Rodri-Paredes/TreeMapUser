@@ -9,6 +9,7 @@ import useFetchSectors from "hooks/useFetchSectors";
 import messages from 'config/messages.json';
 import { Button, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { getDatabase, ref, onValue } from "firebase/database";
 
 const mapContainerStyle = {
     width: '100%',
@@ -22,6 +23,8 @@ const univalleBounds = {
     east: -57.47,
     west: -69.64
 };
+
+const CO2_TO_BOLIVIANOS = 0.60891;
 
 function getMarkerIcon(tree) {
     if (typeof window.google === 'undefined') {
@@ -56,8 +59,44 @@ function MapPage() {
     const [showStats, setShowStats] = useState(true);
     const mapRef = useRef(null);
 
+    const [oxygenProduction, setOxygenProduction] = useState(0);
+    const [temperatureReduction, setTemperatureReduction] = useState(0);
+    const [particleCapture, setParticleCapture] = useState(0);
+    const [CO2Absorption, setCO2Absorption] = useState(0);
+    const [CO2Price, setCO2Price] = useState(0);
+    const [H2OAbsorption, setH2OAbsorption] = useState(0);
+
     useFetchTrees(setTrees, firebaseConfig);
     useFetchSectors(setSectors, firebaseConfig);
+
+    useEffect(() => {
+        const db = getDatabase(firebaseConfig);
+        const speciesRef = ref(db, 'species');
+
+        onValue(speciesRef, (snapshot) => {
+            const speciesData = snapshot.val();
+            let totalOxygen = 0;
+            let totalTemperatureReduction = 0;
+            let totalParticleCapture = 0;
+            let totalCO2Absorption = 0;
+            let totalH2OAbsorption = 0;
+
+            Object.values(speciesData).forEach(species => {
+                totalOxygen += species.OxygenProduction || 0;
+                totalTemperatureReduction += species.TemperatureReduction || 0;
+                totalParticleCapture += species.ParticleCapture || 0;
+                totalCO2Absorption += species.CO2Absorption || 0;
+                totalH2OAbsorption += species.H2OAbsorption || 0;
+            });
+
+            setOxygenProduction(totalOxygen);
+            setTemperatureReduction(totalTemperatureReduction);
+            setParticleCapture(totalParticleCapture);
+            setCO2Absorption(totalCO2Absorption);
+            setCO2Price(totalCO2Absorption * CO2_TO_BOLIVIANOS);
+            setH2OAbsorption(totalH2OAbsorption);
+        });
+    }, []);
 
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: configuration.map.googleMapsApiKey,
@@ -87,6 +126,7 @@ function MapPage() {
         disableDefaultUI: true,
         gestureHandling: 'greedy'
     };
+    
 
     const handleCenterMap = () => {
         if (mapRef.current) {
@@ -144,20 +184,51 @@ function MapPage() {
                 </Button>
             </div>
             <div className="main-container">
-                {showStats && (
-                    <div className="statistics-container">
-                        <h4>{messages.mapPage1.communityImpactTitle}</h4>
-                        <p>
-                            {messages.mapPage1.totalTrees} <strong>{trees.length}</strong>
-                        </p>
-                        <h4>{messages.mapPage1.sectorImpact}</h4>
-                        <h4>{selectedSector?.name || "Todos los Sectores"}</h4>
-                        <p>
-                            {messages.mapPage1.totalTreesInSector} 
-                            <strong>{selectedSector ? countTreesBySector(selectedSector.id) : trees.length}</strong>
-                        </p>
-                    </div>
-                )}
+  {showStats && (
+    <div className="statistics-container">
+      <h3>{messages.mapPage.statisticsTitle}</h3>
+      <div className="statistic">
+        <p>{messages.mapPage.registeredTrees}</p>
+        <strong>{trees.length}</strong>
+      </div>
+      
+      <h4>{messages.mapPage.statisticsSector}</h4>
+      <p className="sector-name">{selectedSector?.name || 'Seleccione un sector'}</p>
+      <div className="statistic">
+        <p>{messages.mapPage.registeredTreesSector}</p>
+        <strong>{selectedSector ? countTreesBySector(selectedSector.id) : 0}</strong>
+      </div>
+      
+      {/* Nueva Sección: Beneficios Ecológicos */}
+      <div className="ecological-benefits">
+        <h4>Beneficios Ecológicos</h4>
+        <div className="benefit">
+          <p>Producción de oxígeno al año (por persona)</p>
+          <strong>{oxygenProduction.toFixed(2)}</strong>
+        </div>
+        <div className="benefit">
+          <p>Reducción de temperatura</p>
+          <strong>{temperatureReduction.toFixed(2)} °C</strong>
+        </div>
+        <div className="benefit">
+          <p>Captura de partículas</p>
+          <strong>{particleCapture.toFixed(2)} kg</strong>
+        </div>
+        <div className="benefit">
+          <p>Absorción de CO2</p>
+          <strong>{CO2Absorption.toFixed(2)} kg</strong>
+          <p>Valor:</p>
+          <strong>Bs. {CO2Price.toFixed(2)}</strong>
+        </div>
+        <div className="benefit total-value">
+          <p>Absorción de H2O</p>
+          <strong>{H2OAbsorption.toFixed(2)} litros</strong>
+        </div>
+      </div>
+    </div>
+  )}
+
+
 
                 <div className="map-container">
                     <GoogleMap

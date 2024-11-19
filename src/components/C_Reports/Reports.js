@@ -11,11 +11,9 @@ import './Reports.css';
 
 ChartJS.register(ArcElement, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
 
-
 function Reports() {
     const [trees, setTrees] = useState([]);
     const [sectors, setSectors] = useState([]);
-
 
     useFetchTrees(setTrees, firebaseConfig);
     useFetchSectors(setSectors, firebaseConfig);
@@ -152,4 +150,5 @@ function Reports() {
         </div>
     )
 }
+
 export default Reports;

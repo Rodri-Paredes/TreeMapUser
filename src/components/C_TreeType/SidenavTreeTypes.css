@@ -1,0 +1,54 @@
+/* Estilos básicos del Offcanvas */
+.sidenav-custom {
+    width: 400px; /* Define el ancho del Sidenav */
+}
+
+.title {
+    display: flex;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-top: 10px; /* Añade un poco de espacio superior */
+}
+
+.close-btn {
+    background-color: transparent;
+    border: none;
+    color: black;
+    font-size: 1.5rem;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+    color: red; /* Cambia a rojo al pasar el cursor */
+}
+
+.scientific-name {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #2e8b57;
+    font-weight: bold;
+}
+
+/* Mejora de la imagen en el carrusel del Sidenav */
+.carousel-item img {
+    max-height: 300px; /* Ajusta la altura máxima de la imagen */
+    object-fit: contain; /* Asegura que la imagen mantenga su proporción */
+    border-radius: 8px; /* Mantiene los bordes redondeados */
+}
+
+/* Ajuste para el cuerpo del Offcanvas */
+.offcanvas-body {
+    padding: 20px; /* Añade espaciado interno */
+}
+
+/* Estilos para la descripción */
+.description {
+    font-size: 0.95rem; /* Ajusta el tamaño del texto */
+    line-height: 1.5; /* Mejora la legibilidad */
+    color: #333; /* Un tono de gris más suave */
+    margin-top: 15px;
+}

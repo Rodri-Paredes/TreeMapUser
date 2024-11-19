@@ -20,6 +20,12 @@ const useFetchSpecies = (setSpecies, config) => {
                     color: value.color,
                     description: value.description,
                     imageUrl: value.imageUrl,
+                    CO2Absorption: value.CO2Absorption,
+                    FoliageArea: value.FoliageArea,
+                    OxygenProduction: value.OxygenProduction,
+                    ParticleCapture: value.ParticleCapture,
+                    TemperatureReduction: value.TemperatureReduction,
+                    H2OAbsorption: value.H2OAbsorption,
                 }));
             }
 
