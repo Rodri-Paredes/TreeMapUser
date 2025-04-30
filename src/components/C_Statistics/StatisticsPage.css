@@ -1,0 +1,30 @@
+.statistics-page {
+    padding: 24px;
+    background-color: #f8f9fa;
+  }
+  
+  .statistics-header h2 {
+    font-size: 28px;
+    margin-bottom: 24px;
+    color: #333;
+  }
+  
+  .statistics-main-metrics {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+  }
+  
+  .stat-box {
+    background-color: white;
+    border-radius: 8px;
+    padding: 16px 24px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    flex: 1;
+    min-width: 200px;
+    text-align: center;
+    font-weight: 500;
+    color: #444;
+  }
+  

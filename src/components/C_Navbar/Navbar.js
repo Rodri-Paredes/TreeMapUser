@@ -20,11 +20,13 @@ function NavigationBar() {
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
-          <Nav.Link as={Link} to="/">{navBarMessages.home}</Nav.Link>
-          <Nav.Link as={Link} to="/about">{navBarMessages.about}</Nav.Link>
-          <Nav.Link as={Link} to="/treetype">{navBarMessages.treeType}</Nav.Link> {/* Agregada la ruta para Tree Type */}
-        </Nav>
+      <Nav className="mr-auto">
+        <Nav.Link as={Link} to="/">{navBarMessages.home}</Nav.Link>
+        <Nav.Link as={Link} to="/about">{navBarMessages.about}</Nav.Link>
+        <Nav.Link as={Link} to="/treetype">{navBarMessages.treeType}</Nav.Link>
+        <Nav.Link as={Link} to="/estadisticas">Estadísticas</Nav.Link>
+        <Nav.Link as={Link} to="/history">Historial</Nav.Link>
+      </Nav>
       </Navbar.Collapse>
     </Navbar>
   );

@@ -1,323 +1,57 @@
-/* Contenedor principal que organiza el mapa y las estadísticas */
-.main-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    height: calc(100vh - 60px); /* Ocupa toda la altura de la ventana menos el footer */
-    padding: 10px;
-    gap: 20px;
-}
-
-/* Contenedor de estadísticas que está a la izquierda */
-/* Contenedor de estadísticas */
-.statistics-container {
-    flex: 0 0 25%;
-    background-color: #f9f9f9;
-    padding: 25px 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+.map-page-container {
+    padding: 24px;
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    max-height: 100%;
-    overflow-y: auto;
-    font-family: 'Arial', sans-serif;
-    transition: background-color 0.3s;
-}
-
-.statistics-container h3, .statistics-container h4 {
-    font-size: 1.2rem;
-    color: #333;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 8px;
-}
-
-.statistic, .benefit {
+    height: calc(100vh - 100px);
+    background-color: #f8f9fa;
+  }
+  
+  .map-header {
     display: flex;
-    justify-content: space-between;
-    font-size: 1rem;
-    margin-bottom: 8px;
-    padding: 8px 0;
-    color: #555;
-    transition: color 0.3s;
-}
-
-.statistic strong, .benefit strong {
-    color: #7711bf;
-    font-weight: bold;
-}
-
-.benefits-container {
-    background-color: #ecf0f1;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-/* Transiciones de hover */
-.statistics-container:hover, .benefits-container:hover {
-    background-color: #e8f8f5;
-}
-
-/* Para el scroll en la lista de sectores */
-.Scroll {
-    overflow-y: auto; /* Activar scroll vertical */
-    margin-top: 20px;
-    display: flex;
-    flex-direction: row;
     justify-content: flex-start;
-    /*scrollbar-width: none;*/
-}
-.sector-color {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    margin-right: 10px;
-}
-.custom-button:hover {
-    background-color: #7711bf; /* Color de fondo en hover */
-}
-
-/* Contenedor del mapa a la derecha */
-.map-container {
-    flex: 1; /* Ocupa el resto del espacio disponible */
+  }
+  
+  .map-wrapper {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    flex: 1;
+  }
+  
+  .map-box {
+    flex: 2;
+    position: relative;
     height: 100%;
-    position: relative; /* Permite que los elementos dentro se posicionen en relación a este */
-}
-
-/* Estilo del buscador */
-.location-search-box {
-    position: absolute; /* Permite que se posicione sobre el mapa */
-    top: 10px; /* Distancia desde la parte superior del mapa */
-    right: 10px; /* Distancia desde la derecha del mapa */
-    display: flex; /* Permite que el input y el botón estén en una fila */
-    align-items: center; /* Centra verticalmente los elementos */
-    z-index: 10; /* Asegura que el buscador esté encima de otros elementos */
-}
-
-.location-search-box input {
-    flex: 1; /* Hace que el input tome todo el espacio disponible */
-    padding: 0.5rem; /* Espaciado interno */
-    border: 1px solid #ccc; /* Borde gris claro */
-    border-radius: 4px; /* Bordes redondeados */
-    font-size: 1rem; /* Tamaño de fuente */
-}
-
-.location-search-box button {
-    margin-left: 0.5rem; /* Espaciado entre el input y el botón */
-    padding: 0.5rem 1rem; /* Espaciado interno */
-    background-color: #7711bf; /* Color de fondo azul */
-    color: white; /* Color de texto blanco */
-    border: none; /* Sin borde */
-    border-radius: 4px; /* Bordes redondeados */
-    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
-    transition: background-color 0.3s; /* Transición para el color de fondo */
-}
-
-.location-search-box button:hover {
-    background-color: #7711bf; /* Color de fondo al pasar el mouse */
-}
-
-/* Footer */
-.footer {
-    background-color: var(--color-secondary);
-    color: #ecf0f1;
-    padding: 10px 20px;
-    text-align: center;
-    width: 100%;
-    margin-top: auto;
-}
-.beneficStyle {
-    display: grid;
-    grid-template-columns: auto 1fr; /* Títulos en una columna, valores en otra */
-    gap: 10px; /* Espacio entre filas */
-    align-items: center;
-    max-width: 400px; /* Limitar el ancho si es necesario */
-    font-family: Arial, sans-serif;
-}
-
-.beneficStyle h4 {
-    grid-column: span 2; /* Título de la sección ocupa ambas columnas */
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #4D4D4D;
-    margin-bottom: 10px;
-    flex-direction: row;
-    display: flex;
-    justify-content: flex-start;
-}
-
-.beneficStyle p {
-    display: flex;
-    justify-content: space-between; /* Distribuye el texto en los extremos */
-    font-size: 1rem;
-    margin: 5px 0;
-}
-
-.beneficStyle strong {
-    color: #4CAF50; /* Color para destacar los valores */
-}
-
-.beneficStyle p::before {
-     /* Reemplazar con la URL del ícono si es necesario */
-    margin-right: 10px; /* Espacio entre el ícono y el texto */
-}
-
-/* Contenedor para mostrar los botones de estadísticas */
-.show-stats {
-    display: flex;
-    justify-content: flex-start; /* Alinear los botones a la izquierda */
-    margin-top: 10px; /* Espaciado superior */
-    gap: 10px; /* Espaciado entre los botones */
-}
-
-/* Estilo para los botones */
-.show-stats .btn-custom {
-    background-color: var(--color-secondary); /* Color de fondo */
-    color: white; /* Color del texto */
-    border: none; /* Sin borde */
-    border-radius: 5px; /* Bordes redondeados */
-    padding: 8px 16px; /* Espaciado interno */
-    font-size: 1rem; /* Tamaño de fuente */
-    cursor: pointer; /* Indicar que es clickeable */
-    transition: background-color 0.3s, transform 0.2s; /* Transición suave para el fondo y la transformación */
-}
-
-/* Cambiar el color al pasar el mouse */
-.show-stats .btn-custom:hover {
-    background-color: var(--color-secondary);/* Color de fondo al pasar el mouse */
-    transform: translateY(-2px); /* Ligera elevación al pasar el mouse */
-}
-/* Botón de centrado en el mapa */
-.center-button {
+    min-height: 500px;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .location-search-box {
     position: absolute;
-    top: 60px;
-    left: 10px;
-    z-index: 10;
-    background-color: #7711bf;
-    color: white;
-    padding: 8px 12px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.center-button:hover {
-    background-color: #4d0871;
-}
-.statistics-container {
-    padding: 20px;
-    background-color: #f5f5f5;
-    border-radius: 8px;
-    max-width: 500px;
-    margin: 20px auto;
-}
-
-.statistic {
+    top: 10px;
+    right: 10px;
     display: flex;
-    justify-content: space-between;
-    padding: 8px 0;
-    border-bottom: 1px solid #ddd;
-}
-
-.additional-stats h4 {
-    margin-top: 15px;
-    font-size: 1.2em;
-}
-
-.statistic p {
-    margin: 0;
-    font-weight: bold;
-}
-
-.statistic strong {
-    color: #45B8AC; /* O el color que prefieras */
-}
-/* Beneficios ecológicos */
-.ecological-benefits {
+    gap: 8px;
+    z-index: 5;
+  }
+  
+  .center-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 5;
+    background-color: #6c57a0;
+    border: none;
+  }
+  
+  .btn-toggle-stats {
+    background-color: #6c57a0;
+    border: none;
+    color: white;
+  }
+  
+  .statistics-panel-wrapper {
     margin-top: 20px;
-    padding: 20px;
-    background-color: #eaf7f7;
-    border-radius: 12px;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.ecological-benefits h4 {
-    font-size: 1.3rem;
-    color: #333;
-    margin-bottom: 15px;
-    border-bottom: 1px solid #45B8AC;
-    padding-bottom: 10px;
-}
-
-.benefit {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 12px 0;
-    font-size: 1rem;
-    border-bottom: 1px solid #ddd;
-    color: #555;
-}
-
-.benefit p {
-    margin: 0;
-    font-weight: normal;
-    color: #333;
-}
-
-.benefit strong {
-    color: #4CAF50;
-    text-align: right;
-}
-
-.total-value {
-    font-weight: bold;
-    border-top: 2px solid #45B8AC;
-    padding-top: 15px;
-    margin-top: 15px;
-    color: #7711bf;
-    font-size: 1.1rem;
-}
-
-/* Responsivo */
-@media (max-width: 768px) {
-    .benefit {
-        grid-template-columns: 1fr;
-        text-align: left;
-    }
-
-    .benefit strong {
-        text-align: left;
-    }
-}
-
-
-/* Estilos específicos para móviles */
-@media (max-width: 768px) {
-    .show-stats {
-        flex-direction: column; /* Cambiar a columna en pantallas pequeñas */
-        align-items: flex-start; /* Alinear los botones a la izquierda */
-    }
-    
-    .show-stats .btn-custom {
-        font-size: 0.9rem; /* Reducir tamaño de fuente en móviles */
-    }
-}
-
-/* Responsividad */
-@media (max-width: 768px) {
-    .main-container {
-        flex-direction: column; /* Cambiar a columna en pantallas pequeñas */
-    }
-    
-    .statistics-container {
-        width: 100%; /* Ocupa todo el ancho */
-        margin-bottom: 20px;
-    }
-    
-    .map-container {
-        width: 100%; /* Ocupa todo el ancho */
-        height: 400px; /* Ajuste para pantallas pequeñas */
-    }
-}
+  }
+  
