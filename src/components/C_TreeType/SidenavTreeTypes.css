@@ -1,0 +1,60 @@
+.tree-modal .modal-content {
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
+    background-color: #ffffff;
+  }
+  
+  .tree-modal-header {
+    background-color: #6c57a0;
+    color: white;
+    padding: 20px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .tree-title {
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .close-btn {
+    font-size: 1.4rem;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .tree-modal-body {
+    padding: 30px;
+    text-align: center;
+  }
+  
+  .tree-image {
+    width: 100%;
+    max-height: 320px;
+    object-fit: contain;
+    border-radius: 16px;
+    margin-bottom: 20px;
+  }
+  
+  .scientific-name {
+    font-size: 1rem;
+    color: #2e8b57;
+    margin-bottom: 12px;
+  }
+  
+  .scientific-name span {
+    font-weight: 600;
+  }
+  
+  .tree-description {
+    font-size: 0.95rem;
+    color: #333;
+    text-align: justify;
+    line-height: 1.6;
+  }
+  

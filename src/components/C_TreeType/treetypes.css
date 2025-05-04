@@ -1,0 +1,107 @@
+.tree-types-page {
+  padding: 40px 30px;
+  background-color: #f7f9f9;
+  min-height: 100vh;
+}
+
+.tree-types-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.tree-types-header h2 {
+  font-size: 28px;
+  font-weight: bold;
+  color: #492678;
+}
+
+.tree-search {
+  margin-bottom: 30px;
+}
+
+.tree-search input {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+}
+
+.tree-cards-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* solo 3 por fila */
+  gap: 24px;
+}
+
+.tree-card {
+  background-color: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+
+.tree-card:hover {
+  transform: translateY(-6px);
+}
+
+.tree-card-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.tree-card-info {
+  padding: 16px;
+}
+
+.tree-card-info h5 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #492678;
+  margin-bottom: 4px;
+}
+
+.tree-card-info span {
+  color: #6c57a0;
+  font-weight: 500;
+}
+
+.tree-card-info p {
+  font-size: 14px;
+  color: #444;
+  margin-top: 6px;
+}
+
+.tree-badges {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.tree-badge {
+  background-color: #4ac0e1;
+  color: white;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 20px;
+}
+
+
+@media (max-width: 1024px) {
+  .tree-cards-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .tree-cards-container {
+    grid-template-columns: 1fr;
+  }
+}

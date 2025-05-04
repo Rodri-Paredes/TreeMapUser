@@ -1,0 +1,396 @@
+:root {
+  --celeste: #4ac0e1;
+  --violeta: #6c57a0;
+  --rosa: #ea547c;
+  --purpura: #492678;
+  --amarillo: #f9b154;
+  --menta: #4eb9a7;
+  --fondo: #f7f9f9;
+  --blanco: #ffffff;
+  --gris: #444;
+}
+
+/* Estructura principal */
+.main-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: calc(100vh - 180px); /* Altura justa que no lo achica en desktop */
+  padding: 10px;
+  gap: 20px;
+}
+/* Estadísticas */
+.statistics-container {
+  flex: 0 0 30%;
+  background-color: var(--blanco);
+  padding: 15px 20px;
+  border-radius: 16px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-height: 100%;
+  overflow-y: auto;
+}
+
+.statistics-container h3, .statistics-container h4 {
+  font-size: 1.2rem;
+  color: var(--purpura);
+  margin-bottom: 12px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 8px;
+}
+
+.statistic, .benefit {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1rem;
+  margin-bottom: 8px;
+  padding: 8px 0;
+  color: var(--gris);
+}
+
+.statistic strong, .benefit strong {
+  color: var(--violeta);
+  font-weight: 600;
+}
+
+/* Contenedor mapa */
+.map-container {
+  flex: 1;
+  position: relative;
+  height: 100%;
+  min-height: 500px; /* altura decente desktop */
+}
+
+#map {
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+}
+
+/* Botón buscar */
+.location-search-box {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  display: flex;
+  align-items: center;
+  z-index: 10;
+}
+
+.location-search-box input {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: var(--blanco);
+  font-size: 15px;
+}
+
+.location-search-box button {
+  margin-left: 8px;
+  padding: 10px 14px;
+  background: var(--celeste);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.location-search-box button:hover {
+  background: var(--purpura);
+}
+
+/* Botón centrar mapa */
+.center-button {
+  background-color: var(--menta);
+  color: white;
+  font-weight: 600;
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: none;
+  position: absolute;
+  top: 70px;
+  left: 15px;
+  z-index: 10;
+  transition: background 0.3s ease, transform 0.2s;
+}
+
+.center-button:hover {
+  background-color: var(--purpura);
+  transform: scale(1.05);
+}
+
+
+/* Lista de sectores */
+.Scroll {
+  overflow-x: auto;
+  margin-top: 15px;
+  display: flex;
+  gap: 12px;
+  padding: 0 20px;
+}
+
+/* Botones de distritos */
+.custom-button {
+  background-color: var(--blanco);
+  border: 2px solid var(--menta);
+  color: var(--menta);
+  font-weight: 600;
+  border-radius: 12px;
+  padding: 10px 18px;
+  min-width: 180px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.custom-button:hover {
+  background-color: var(--menta);
+  color: var(--blanco);
+  transform: translateY(-2px);
+}
+
+/* Botones adicionales */
+.show-stats {
+  display: flex;
+  justify-content: flex-start;
+  padding: 20px;
+  gap: 12px;
+}
+
+.btn-custom {
+  background-color: var(--violeta);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.btn-custom:hover {
+  background-color: var(--purpura);
+  transform: scale(1.05);
+}
+
+.show-stats{
+  background: var(--menta);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.show-stats  {
+  background: var(--violeta);
+}
+
+/* Beneficios ecológicos */
+.ecological-benefits {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #eaf7f7;
+  border-radius: 16px;
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.08);
+}
+
+.ecological-benefits h4 {
+  font-size: 1.2rem;
+  color: var(--purpura);
+  margin-bottom: 15px;
+  border-bottom: 1px solid var(--celeste);
+  padding-bottom: 8px;
+}
+
+.benefit {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 8px 0;
+  font-size: 15px;
+  color: var(--gris);
+}
+
+.benefit p {
+  margin: 0;
+}
+
+.benefit strong {
+  text-align: right;
+}
+
+/* Contenedor scroll horizontal de distritos */
+.district-scroll-container {
+  display: flex;
+  overflow-x: auto;
+  gap: 12px;
+  padding: 10px 20px;
+  margin: 20px auto;
+  background-color: var(--blanco);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  scrollbar-width: none; /* Firefox */
+}
+
+.district-scroll-container::-webkit-scrollbar {
+  display: none; /* Chrome */
+}
+
+
+.district-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: nowrap;
+  min-width: max-content;
+}
+
+
+.district-button {
+  flex-shrink: 0;
+  white-space: nowrap;
+  border-radius: 10px;
+  padding: 8px 16px;
+  font-weight: 500;
+  font-size: 14px;
+  background-color: white;
+  transition: all 0.2s ease;
+}
+
+
+.district-button:hover {
+  background-color: var(--celeste);
+  color: white !important;
+}
+
+.toolbar-container {
+  background: var(--blanco);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  padding: 16px 24px;
+  margin-bottom: 20px;
+  border-radius: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.district-scroll {
+  overflow-x: auto;
+  padding: 12px 20px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.district-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* Nuevo estilo para cada distrito */
+.district-tag {
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-weight: 600;
+  font-size: 14px;
+  white-space: nowrap;
+  background-color: white;
+  border: 2px solid #ccc;
+  transition: all 0.2s ease-in-out;
+}
+
+.district-tag:hover {
+  transform: translateY(-2px);
+  background-color: #f9f9f9;
+}
+
+.toolbar-buttons button {
+  background-color: var(--violeta);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  margin: 0px -5px 0px 20px;
+  padding: 10px 16px;
+  font-weight: 500;
+  transition: background 0.3s;
+}
+
+.toolbar-buttons button:hover {
+  background-color: var(--purpura);
+}
+
+/* Mobile tweaks */
+@media (max-width: 768px) {
+  .district-scroll {
+    padding: 10px 12px;
+  }
+
+  .district-buttons {
+    gap: 8px;
+  }
+
+  .district-button {
+    font-size: 13px;
+    padding: 6px 12px;
+  }
+
+  .main-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 20px;
+  }
+
+
+  .map-container {
+    flex: 1;
+    min-height: 500px;
+    height: 500px;
+    position: relative;
+  }
+
+  .map-container {
+    height: 400px; 
+    min-height: 400px;
+  }
+
+  .map-visible {
+    display: block;
+  }
+
+  .map-hidden {
+    display: none;
+  }
+
+  .statistics-container {
+    margin-top: 10px !important;
+  }
+
+   .statistics-container[style*="display: none"] {
+    display: none !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-container {
+    flex-direction: column;
+    padding: 10px;
+  }
+}
+@media (max-width: 768px) {
+  .map-container {
+    height: auto;
+    min-height: auto;
+  }
+}

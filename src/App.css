@@ -1,0 +1,23 @@
+/* App.css */
+
+/* Asegura que el body y html ocupen toda la pantalla */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Asegura que el contenedor principal ocupe el 100% */
+#root {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
