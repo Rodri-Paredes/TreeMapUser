@@ -155,3 +155,44 @@
 .tree-stats strong {
   color: #4eb9a7;
 }
+
+.tree-extra-info p {
+  margin: 5px 0;
+  font-size: 0.95rem;
+}
+.tree-extra-info {
+  margin-top: 1rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid #ccc;
+  font-size: 0.95rem;
+  color: #444;
+}
+@media (max-width: 600px) {
+  .modal-content {
+    padding: 20px;
+    max-height: 95vh;
+  }
+
+  .tree-title {
+    font-size: 22px;
+    text-align: center;
+  }
+
+  .tree-subtitle {
+    font-size: 18px;
+    text-align: center;
+  }
+
+  .tree-image {
+    max-height: 200px;
+    margin: 10px 0;
+  }
+
+  .tree-details p {
+    font-size: 14px;
+  }
+
+  .tree-extra-info {
+    font-size: 14px;
+  }
+}

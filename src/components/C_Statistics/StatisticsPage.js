@@ -1,99 +1,113 @@
-import React from 'react';
-import StatisticsPanel from './StatisticsPanel';
+import React, { useState, useEffect } from 'react';
 import useFetchTrees from 'hooks/useFetchTrees';
 import useFetchSectors from 'hooks/useFetchSectors';
 import firebaseConfig from 'config/firebaseConfig';
-import messages from 'config/messages.json';
-import Footer from '../C_Footer/Footer';
+import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from 'chart.js';
+import { Bar } from 'react-chartjs-2';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 import './StatisticsPage.css';
+import CustomLegend from '../C_Legend/CustomLegend';
+
+ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 function StatisticsPage() {
-  const [trees, setTrees] = React.useState([]);
-  const [sectors, setSectors] = React.useState([]);
-  const [selectedSector, setSelectedSector] = React.useState(null);
-
-  const [oxygenProduction, setOxygenProduction] = React.useState(0);
-  const [temperatureReduction, setTemperatureReduction] = React.useState(0);
-  const [particleCapture, setParticleCapture] = React.useState(0);
-  const [CO2Absorption, setCO2Absorption] = React.useState(0);
-  const [CO2Price, setCO2Price] = React.useState(0);
-  const [H2OAbsorption, setH2OAbsorption] = React.useState(0);
-
-  const CO2_TO_BOLIVIANOS = 0.60891;
+  const [trees, setTrees] = useState([]);
+  const [sectors, setSectors] = useState([]);
+  const [activeSpecies, setActiveSpecies] = useState({});
+  const [activeSectors, setActiveSectors] = useState({});
 
   useFetchTrees(setTrees, firebaseConfig);
   useFetchSectors(setSectors, firebaseConfig);
 
-  React.useEffect(() => {
-    import('firebase/database').then(({ getDatabase, ref, onValue }) => {
-      const db = getDatabase(firebaseConfig);
-      const speciesRef = ref(db, 'species');
+  const allSpecies = [...new Set(trees.map(tree => tree.species?.commonName || 'Desconocido'))];
+  const filteredSpecies = allSpecies.filter(sp => activeSpecies[sp] !== false);
+  const speciesCounts = filteredSpecies.map(sp => 
+    trees.filter(tree => (tree.species?.commonName || 'Desconocido') === sp).length
+  );
+  const speciesColors = allSpecies.map((_, i) => `hsl(${(i * 30) % 360}, 70%, 50%)`);
 
-      onValue(speciesRef, (snapshot) => {
-        const data = snapshot.val();
-        let oxy = 0, temp = 0, particles = 0, co2 = 0, h2o = 0;
-        Object.values(data).forEach(sp => {
-          oxy += sp.OxygenProduction || 0;
-          temp += sp.TemperatureReduction || 0;
-          particles += sp.ParticleCapture || 0;
-          co2 += sp.CO2Absorption || 0;
-          h2o += sp.H2OAbsorption || 0;
-        });
-        setOxygenProduction(oxy);
-        setTemperatureReduction(temp);
-        setParticleCapture(particles);
-        setCO2Absorption(co2);
-        setCO2Price(co2 * CO2_TO_BOLIVIANOS);
-        setH2OAbsorption(h2o);
+  const speciesBarData = {
+    labels: filteredSpecies,
+    datasets: [{
+      label: 'Árboles por Especie',
+      data: speciesCounts,
+      backgroundColor: filteredSpecies.map((sp, i) => speciesColors[allSpecies.indexOf(sp)]),
+    }]
+  };
+
+  // 🔧 FIX: coerción para comparar sectorId (string vs number)
+  const treesBySector = sectors.map(sector => ({
+    name: sector.name,
+    count: trees.filter(tree => String(tree.sectorId) === String(sector.id)).length
+  }));
+  const sortedSectors = treesBySector.sort((a, b) => b.count - a.count);
+  const allSectorNames = sortedSectors.map(s => s.name);
+  const filteredSectors = allSectorNames.filter(s => activeSectors[s] !== false);
+  const sectorCounts = filteredSectors.map(name => sortedSectors.find(s => s.name === name)?.count || 0);
+  const sectorColors = allSectorNames.map((_, i) => `hsl(${(i * 30) % 360}, 70%, 50%)`);
+
+  const sectorBarData = {
+    labels: filteredSectors,
+    datasets: [{
+      label: 'Árboles por Sector',
+      data: sectorCounts,
+      backgroundColor: filteredSectors.map((name, i) => sectorColors[allSectorNames.indexOf(name)]),
+    }]
+  };
+
+  const summary = {
+    total: trees.length,
+    uniqueSpecies: allSpecies.length,
+    coveredZones: sectors.length
+  };
+
+  function downloadAllReports() {
+    const doc = new jsPDF("p", "mm", "a4");
+    html2canvas(document.querySelector('.chart-species')).then((canvas1) => {
+      doc.addImage(canvas1.toDataURL("image/png"), 'PNG', 10, 10, 190, 80);
+      html2canvas(document.querySelector('.chart-sectors')).then((canvas2) => {
+        doc.addImage(canvas2.toDataURL("image/png"), 'PNG', 10, 100, 190, 80);
+        doc.save("reportes.pdf");
       });
     });
-  }, []);
-
-  const countTreesBySector = (sectorId) => {
-    return trees.filter((tree) => tree.sectorId === sectorId).length;
-  };
-
-  const handleSectorChange = (e) => {
-    const sectorId = e.target.value;
-    const selected = sectors.find(sector => sector.id === sectorId);
-    setSelectedSector(selected || null);
-  };
+  }
 
   return (
     <div className="statistics-page">
-      <div className="statistics-header">
-        <h2>📊 Panel de Estadísticas</h2>
+      <h2>📊 Panel de Estadísticas</h2>
+
+      <div className="summary-panel">
+        <div className="summary-box">Árboles Registrados<br /><strong>{summary.total}</strong></div>
+        <div className="summary-box">Especies Únicas<br /><strong>{summary.uniqueSpecies}</strong></div>
+        <div className="summary-box">Zonas Cubiertas<br /><strong>{summary.coveredZones}</strong></div>
       </div>
-  
-      <div className="statistics-main-metrics">
-        <div className="stat-box">Árboles Registrados<br /><strong>{trees.length}</strong></div>
-        <div className="stat-box">Especies Únicas<br /><strong>{new Set(trees.map(t => t.species?.commonName)).size}</strong></div>
-        <div className="stat-box">Zonas Cubiertas<br /><strong>{sectors.length}</strong></div>
-        <div className="stat-box">CO₂ Absorbido<br /><strong>{(CO2Absorption / 1000).toFixed(1)} Tn</strong></div>
+
+      <button className="download-button" onClick={downloadAllReports}>Descargar PDF de Reportes</button>
+
+      <div className="charts-row">
+        <div className="chart-box chart-species">
+          <h3>Árboles por Especie</h3>
+          <Bar data={speciesBarData} options={{ indexAxis: 'y', plugins: { legend: { display: false } } }} />
+          <CustomLegend
+            labels={allSpecies}
+            colors={speciesColors}
+            activeItems={activeSpecies}
+            setActiveItems={setActiveSpecies}
+          />
+        </div>
+
+        <div className="chart-box chart-sectors">
+          <h3>Árboles por Sector</h3>
+          <Bar data={sectorBarData} options={{ indexAxis: 'y', plugins: { legend: { display: false } } }} />
+          <CustomLegend
+            labels={allSectorNames}
+            colors={sectorColors}
+            activeItems={activeSectors}
+            setActiveItems={setActiveSectors}
+          />
+        </div>
       </div>
-  
-      <div className="sector-selector">
-        <label htmlFor="sector">Selecciona un sector: </label>
-        <select id="sector" onChange={handleSectorChange} defaultValue="">
-          <option value="">-- Ninguno --</option>
-          {sectors.map((sector) => (
-            <option key={sector.id} value={sector.id}>{sector.name}</option>
-          ))}
-        </select>
-      </div>
-  
-      <StatisticsPanel
-        trees={trees}
-        selectedSector={selectedSector}
-        countTreesBySector={countTreesBySector}
-        oxygenProduction={oxygenProduction}
-        temperatureReduction={temperatureReduction}
-        particleCapture={particleCapture}
-        CO2Absorption={CO2Absorption}
-        CO2Price={CO2Price}
-        H2OAbsorption={H2OAbsorption}
-        messages={messages}
-      />
     </div>
   );
 }

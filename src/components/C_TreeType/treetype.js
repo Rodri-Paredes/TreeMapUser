@@ -55,8 +55,8 @@ const TreeType = () => {
               </h5>
               <p>{shortenText(tree.description)}</p>
               <div className="tree-badges">
-                <div className="tree-badge">Flor {tree.flowerColor}</div>
-                <div className="tree-badge">Altura: {tree.heightRange}</div>
+                <div className="tree-badge">Hoja: {tree.foliage}</div>
+                <div className="tree-badge">Crecimiento: {tree.growth}</div>
               </div>
             </div>
           </div>

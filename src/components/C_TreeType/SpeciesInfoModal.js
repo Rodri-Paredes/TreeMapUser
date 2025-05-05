@@ -26,6 +26,13 @@ function SpeciesInfoModal({ tree, onClose }) {
 
           <div className="tree-details">
             <p>{tree.description}</p>
+            <div className="tree-extra-info">
+              <p><strong>🌱 Crecimiento:</strong> {tree.growth}</p>
+              <p><strong>💧 Riego:</strong> {tree.watering}</p>
+              <p><strong>📝 Detalles adicionales:</strong> {tree.additional}</p>
+            </div>
+
+
           </div>
         </div>
       </div>
