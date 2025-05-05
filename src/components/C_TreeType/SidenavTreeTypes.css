@@ -1,54 +1,60 @@
-/* Estilos básicos del Offcanvas */
-.sidenav-custom {
-    width: 400px; /* Define el ancho del Sidenav */
-}
-
-.title {
+.tree-modal .modal-content {
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
+    background-color: #ffffff;
+  }
+  
+  .tree-modal-header {
+    background-color: #6c57a0;
+    color: white;
+    padding: 20px 30px;
     display: flex;
-    justify-content: center;
-    font-size: 1.5rem;
-    margin-top: 10px; /* Añade un poco de espacio superior */
-}
-
-.close-btn {
-    background-color: transparent;
-    border: none;
-    color: black;
-    font-size: 1.5rem;
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    cursor: pointer;
-    transition: color 0.3s ease;
-}
-
-.close-btn:hover {
-    color: red; /* Cambia a rojo al pasar el cursor */
-}
-
-.scientific-name {
-    margin-top: 20px;
-    margin-bottom: 10px;
-    color: #2e8b57;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .tree-title {
+    font-size: 1.4rem;
     font-weight: bold;
-}
-
-/* Mejora de la imagen en el carrusel del Sidenav */
-.carousel-item img {
-    max-height: 300px; /* Ajusta la altura máxima de la imagen */
-    object-fit: contain; /* Asegura que la imagen mantenga su proporción */
-    border-radius: 8px; /* Mantiene los bordes redondeados */
-}
-
-/* Ajuste para el cuerpo del Offcanvas */
-.offcanvas-body {
-    padding: 20px; /* Añade espaciado interno */
-}
-
-/* Estilos para la descripción */
-.description {
-    font-size: 0.95rem; /* Ajusta el tamaño del texto */
-    line-height: 1.5; /* Mejora la legibilidad */
-    color: #333; /* Un tono de gris más suave */
-    margin-top: 15px;
-}
+    margin: 0;
+  }
+  
+  .close-btn {
+    font-size: 1.4rem;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .tree-modal-body {
+    padding: 30px;
+    text-align: center;
+  }
+  
+  .tree-image {
+    width: 100%;
+    max-height: 320px;
+    object-fit: contain;
+    border-radius: 16px;
+    margin-bottom: 20px;
+  }
+  
+  .scientific-name {
+    font-size: 1rem;
+    color: #2e8b57;
+    margin-bottom: 12px;
+  }
+  
+  .scientific-name span {
+    font-weight: 600;
+  }
+  
+  .tree-description {
+    font-size: 0.95rem;
+    color: #333;
+    text-align: justify;
+    line-height: 1.6;
+  }
+  

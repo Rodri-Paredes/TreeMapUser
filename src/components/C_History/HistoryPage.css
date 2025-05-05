@@ -1,0 +1,33 @@
+.history-page-container {
+    padding: 30px;
+    background-color: #f8f9fa;
+    min-height: 80vh;
+  }
+  
+  .filter-container {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+  }
+  
+  .status-badge {
+    padding: 4px 8px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: bold;
+    color: white;
+  }
+  
+  .status-badge.saludable {
+    background-color: #4eb9a7;
+  }
+  
+  .status-badge.enfermo {
+    background-color: #ea547c;
+  }
+  
+  .status-badge.recién-plantado {
+    background-color: #f9b154;
+    color: black;
+  }
+  

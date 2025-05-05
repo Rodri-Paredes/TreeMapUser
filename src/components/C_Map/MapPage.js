@@ -10,6 +10,7 @@ import messages from 'config/messages.json';
 import { Button, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { getDatabase, ref, onValue } from "firebase/database";
+import TreeInfoModal from 'components/TreeInfoModal/TreeInfoModal';
 
 const mapContainerStyle = {
     width: '100%',
@@ -197,146 +198,149 @@ function MapPage() {
 
     return (
         <>
-            <div className="Scroll">
+           <div className="district-scroll">
+              <div className="district-buttons">
                 {sectors.map((sectorItem, index) => (
-                    <Button
-                        key={index}
-                        className="custom-button"
-                        style={{
-                            color: sectorItem.color,
-                            borderColor: sectorItem.color,
-                            marginRight: 10,
-                            fontSize: 12,
-                            minWidth: '210px'
-                        }}
-                        variant="outline-primary"
-                        onClick={() => setSelectedSector(sectorItem)} 
-                    >
-                        {sectorItem.name} ({countTreesBySector(sectorItem.id)})
-                    </Button>
+                  <Button
+                    key={index}
+                    className="district-button"
+                    style={{
+                      color: sectorItem.color,
+                      borderColor: sectorItem.color
+                    }}
+                    variant="outline-primary"
+                    onClick={() => setSelectedSector(sectorItem)} 
+                  >
+                    {sectorItem.name} ({countTreesBySector(sectorItem.id)})
+                  </Button>
                 ))}
+              </div>
             </div>
 
-            <div className="show-stats">
-                <Button className="btn-custom" onClick={() => setShowStats(!showStats)}>
-                    {showStats ? 'Ocultar Estadísticas' : 'Mostrar Estadísticas'}
-                </Button>
-                {selectedSector && (
-                    <Button className="btn-custom" onClick={() => setSelectedSector(null)}>
-                        Mostrar todos los sectores
-                    </Button>
-                )}
-                <Button className="btn-custom">
-                    <Link to="/reports" style={{ textDecoration: 'none', color: 'inherit' }}>
-                        Mostrar Reportes
-                    </Link>
-                </Button>
+
+            <div className="toolbar-buttons">
+              <Button onClick={() => setShowStats(!showStats)}>
+                {showStats ? 'Ocultar Estadísticas' : 'Mostrar Estadísticas'}
+              </Button>
+              {selectedSector && (
+                <Button onClick={() => setSelectedSector(null)}>Mostrar todos los sectores</Button>
+              )}
+              <Button>
+                <Link to="/reports" style={{ color: "white", textDecoration: "none" }}>
+                  Mostrar Reportes
+                </Link>
+              </Button>
             </div>
             <div className="main-container">
-                {showStats && (
-                    <div className="statistics-container">
-                        <h3>{messages.mapPage.statisticsTitle}</h3>
-                        <div className="statistic">
-                            <p>{messages.mapPage.registeredTrees}</p>
-                            <strong>{trees.length}</strong>
-                        </div>
-                        
-                        <h4>{messages.mapPage.statisticsSector}</h4>
-                        <p className="sector-name">{selectedSector?.name || 'Seleccione un sector'}</p>
-                        <div className="statistic">
-                            <p>{messages.mapPage.registeredTreesSector}</p>
-                            <strong>{selectedSector ? countTreesBySector(selectedSector.id) : 0}</strong>
-                        </div>
-
-                        {/* Nueva Sección: Beneficios Ecológicos */}
-                        <div className="ecological-benefits">
-                            <h4>Beneficios Ecológicos</h4>
-                            <div className="benefit">
-                                <p>Producción de oxígeno al año (por persona)</p>
-                                <strong>{oxygenProduction.toFixed(2)}</strong>
-                            </div>
-                            <div className="benefit">
-                                <p>Reducción de temperatura</p>
-                                <strong>{temperatureReduction.toFixed(2)} °C</strong>
-                            </div>
-                            <div className="benefit">
-                                <p>Captura de partículas</p>
-                                <strong>{particleCapture.toFixed(2)} kg</strong>
-                            </div>
-                            <div className="benefit">
-                                <p>Absorción de CO2</p>
-                                <strong>{CO2Absorption.toFixed(2)} kg</strong>
-                                <p>Valor:</p>
-                                <strong>Bs. {CO2Price.toFixed(2)}</strong>
-                            </div>
-                            <div className="benefit total-value">
-                                <p>Absorción de H2O</p>
-                                <strong>{H2OAbsorption.toFixed(2)} litros</strong>
-                            </div>
-                        </div>
-                    </div>
-                )}
-
+                {/* Primero el mapa */}
                 <div className="map-container">
                     <div className="location-search-box">
-                        <Autocomplete
-                            onLoad={(autocompleteInstance) => {
-                                setAutocomplete(autocompleteInstance);
-                                autocompleteInstance.setBounds(new window.google.maps.LatLngBounds(
-                                    new window.google.maps.LatLng(cochabambaBounds.south, cochabambaBounds.west),
-                                    new window.google.maps.LatLng(cochabambaBounds.north, cochabambaBounds.east)
-                                ));
-                                autocompleteInstance.setComponentRestrictions({
-                                    country: "BO" // Limitar a Bolivia
-                                });
-                            }}
-                        >
-                            <Form.Control
-                                type="text"
-                                placeholder="Buscar ubicación..."
-                                value={locationSearch}
-                                onChange={(e) => setLocationSearch(e.target.value)}
-                            />
-                        </Autocomplete>
-                        <Button onClick={handleLocationSearch}>Buscar</Button>
-                    </div>
-                    <Button className="center-button" onClick={handleCenterMap}>
-                        Centrar
-                    </Button>
-                    <GoogleMap
-                      mapContainerStyle={mapContainerStyle}
-                      zoom={mapZoom}
-                      center={mapCenter}
-                      options={mapOptions}
-                      onLoad={(map) => (mapRef.current = map)}
+                    <Autocomplete
+                        onLoad={(autocompleteInstance) => {
+                        setAutocomplete(autocompleteInstance);
+                        autocompleteInstance.setBounds(new window.google.maps.LatLngBounds(
+                            new window.google.maps.LatLng(cochabambaBounds.south, cochabambaBounds.west),
+                            new window.google.maps.LatLng(cochabambaBounds.north, cochabambaBounds.east)
+                        ));
+                        autocompleteInstance.setComponentRestrictions({
+                            country: "BO"
+                        });
+                        }}
                     >
-                        {sectors?.map((sectorItem, index) => (
-                         <Polygon
-                         key={index}
-                         paths={sectorItem.polygonPath}
-                         options={{ fillColor: sectorItem.color, fillOpacity: 0.1, strokeColor: sectorItem.color }}
-                     />
-                        ))}
-                        {filteredTrees?.map((tree) => (
-                            <Marker
-                                key={tree.id}
-                                position={{ lat: tree.latitude, lng: tree.longitude }}
-                                icon={getMarkerIcon(tree)}
-                                onClick={() => setSelectedTree(tree)}
-                            />
-                        ))}
-                        {markerPosition && (
-                            <Marker position={markerPosition} icon={{
-                                url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
-                            }} />
-                        )}
+                        <Form.Control
+                        type="text"
+                        placeholder="Buscar ubicación..."
+                        value={locationSearch}
+                        onChange={(e) => setLocationSearch(e.target.value)}
+                        />
+                    </Autocomplete>
+                    <Button onClick={handleLocationSearch}>Buscar</Button>
+                    </div>
+
+                    <Button className="center-button" onClick={handleCenterMap}>
+                    Centrar
+                    </Button>
+
+                    <GoogleMap
+                    mapContainerStyle={mapContainerStyle}
+                    zoom={mapZoom}
+                    center={mapCenter}
+                    options={mapOptions}
+                    onLoad={(map) => (mapRef.current = map)}
+                    >
+                    {sectors?.map((sectorItem, index) => (
+                        <Polygon
+                        key={index}
+                        paths={sectorItem.polygonPath}
+                        options={{ fillColor: sectorItem.color, fillOpacity: 0.1, strokeColor: sectorItem.color }}
+                        />
+                    ))}
+                    {filteredTrees?.map((tree) => (
+                        <Marker
+                        key={tree.id}
+                        position={{ lat: tree.latitude, lng: tree.longitude }}
+                        icon={getMarkerIcon(tree)}
+                        onClick={() => setSelectedTree(tree)}
+                        />
+                    ))}
+                    {markerPosition && (
+                        <Marker position={markerPosition} icon={{ url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png" }} />
+                    )}
                     </GoogleMap>
-                    {selectedTree && <Sidenav tree={selectedTree} onClose={() => setSelectedTree(null)} />}
+
+                    {selectedTree && (
+                    <TreeInfoModal tree={selectedTree} onClose={() => setSelectedTree(null)} />
+                    )}
                 </div>
+
+                {/* Después las estadísticas */}
+                {showStats && (
+                    <div className="statistics-container">
+                    <h3>{messages.mapPage.statisticsTitle}</h3>
+                    <div className="statistic">
+                        <p>{messages.mapPage.registeredTrees}</p>
+                        <strong>{trees.length}</strong>
+                    </div>
+
+                    <h4>{messages.mapPage.statisticsSector}</h4>
+                    <p className="sector-name">{selectedSector?.name || 'Seleccione un sector'}</p>
+                    <div className="statistic">
+                        <p>{messages.mapPage.registeredTreesSector}</p>
+                        <strong>{selectedSector ? countTreesBySector(selectedSector.id) : 0}</strong>
+                    </div>
+
+                    <div className="ecological-benefits">
+                        <h4>Beneficios Ecológicos</h4>
+                        <div className="benefit">
+                        <p>Producción de oxígeno</p>
+                        <strong>{oxygenProduction.toFixed(2)}</strong>
+                        </div>
+                        <div className="benefit">
+                        <p>Reducción de temperatura</p>
+                        <strong>{temperatureReduction.toFixed(2)} °C</strong>
+                        </div>
+                        <div className="benefit">
+                        <p>Captura de partículas</p>
+                        <strong>{particleCapture.toFixed(2)} kg</strong>
+                        </div>
+                        <div className="benefit">
+                        <p>Absorción de CO2</p>
+                        <strong>{CO2Absorption.toFixed(2)} kg</strong>
+                        </div>
+                        <div className="benefit">
+                        <p>Valor</p>
+                        <strong>Bs. {CO2Price.toFixed(2)}</strong>
+                        </div>
+                        <div className="benefit total-value">
+                        <p>Absorción de H2O</p>
+                        <strong>{H2OAbsorption.toFixed(2)} litros</strong>
+                        </div>
+                    </div>
+                    </div>
+                )}
             </div>
-            <footer className="footer">
-                <p>{messages.mapPage.footerText}</p>
-            </footer>
+
+           
         </>
     );
 }

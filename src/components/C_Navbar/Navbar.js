@@ -1,32 +1,46 @@
-import React from 'react';
-import { Navbar, Nav } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import './Navbar.css';  // Importar el archivo CSS
-import logo from './logoTreeMap.png';  // Importar el logo desde la carpeta actual
+import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
+import './Navbar.css';
+import logo from './logoTreeMap.png';
 import messages from 'config/messages.json';
-
 
 function NavigationBar() {
   const navBarMessages = messages.navBar;
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const toggleMenu = () => setMenuOpen(!menuOpen);
+
   return (
-    <Navbar className="navbar-custom" expand="lg"> {/* Clase personalizada */}
-      <Navbar.Brand href="#home">
-        <img
-          src={logo}  // Usar el logo importado desde el archivo local
-          alt="Logo"
-          className="navbar-logo"  // Aplicar la clase personalizada para el logo
-        />
-        {navBarMessages.title}
-      </Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
-          <Nav.Link as={Link} to="/">{navBarMessages.home}</Nav.Link>
-          <Nav.Link as={Link} to="/about">{navBarMessages.about}</Nav.Link>
-          <Nav.Link as={Link} to="/treetype">{navBarMessages.treeType}</Nav.Link> {/* Agregada la ruta para Tree Type */}
-        </Nav>
-      </Navbar.Collapse>
-    </Navbar>
+    <div className="navbar-wrapper">
+      <nav className="navbar-app">
+        <div className="navbar-logo-section">
+          <img src={logo} alt="Logo" className="navbar-logo" />
+          <span className="navbar-title">{navBarMessages.title}</span>
+        </div>
+
+        <button className="menu-toggle" onClick={toggleMenu}>
+          {menuOpen ? '✖' : '☰'}
+        </button>
+
+        <div className={`navbar-links ${menuOpen ? 'open' : ''}`}>
+          <NavLink to="/" end className={({ isActive }) => isActive ? 'active-link' : ''}>
+            {navBarMessages.home}
+          </NavLink>
+          <NavLink to="/about" className={({ isActive }) => isActive ? 'active-link' : ''}>
+            {navBarMessages.about}
+          </NavLink>
+          <NavLink to="/treetype" className={({ isActive }) => isActive ? 'active-link' : ''}>
+            {navBarMessages.treeType}
+          </NavLink>
+          <NavLink to="/estadisticas" className={({ isActive }) => isActive ? 'active-link' : ''}>
+            Estadísticas
+          </NavLink>
+          <NavLink to="/history" className={({ isActive }) => isActive ? 'active-link' : ''}>
+            Historial
+          </NavLink>
+        </div>
+      </nav>
+    </div>
   );
 }
 

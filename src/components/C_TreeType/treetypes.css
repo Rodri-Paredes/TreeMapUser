@@ -1,53 +1,104 @@
-.container {
-    margin-top: 70px;
+.tree-types-page {
+  padding: 40px 30px;
+  background-color: #f7f9f9;
+  min-height: 100vh;
 }
 
-.card {
-    height: 100%;
+.tree-types-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
 }
 
-.card-img-top {
-    width: 100%;
-    height: 200px;
-    object-fit: cover; /* Adapta la imagen a la tarjeta */
+.tree-types-header h2 {
+  font-size: 28px;
+  font-weight: bold;
+  color: #492678;
 }
 
-.sidenav-custom {
-    width: 400px;
+.tree-search {
+  margin-bottom: 30px;
 }
 
-.scientific-name {
-    margin-top: 20px;
-    margin-bottom: 10px;
-    color: #2e8b57;
-    font-weight: bold;
+.tree-search input {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 15px;
 }
 
-.welcome-description {
-    font-size: 16px;
-    color: var(--color-primary);
-    margin-bottom: 20px;
+.tree-cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  justify-content: center;
 }
 
-.tree-image {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
+.tree-card {
+  max-width: 320px;
+  margin: 0 auto;
 }
 
-.card-title {
-    font-size: 1.2rem;
-    text-align: center;
-    margin-top: 10px;
+.tree-card:hover {
+  transform: translateY(-6px);
 }
 
-/* Estilos para la barra de búsqueda */
-.search-bar-container {
-    display: flex;
-    justify-content: center;
+.tree-card-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
 }
 
-.search-bar-container input {
-    max-width: 400px;
-    border-radius: 5px;
+.tree-card-info {
+  padding: 16px;
+}
+
+.tree-card-info h5 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #492678;
+  margin-bottom: 4px;
+}
+
+.tree-card-info span {
+  color: #6c57a0;
+  font-weight: 500;
+}
+
+.tree-card-info p {
+  font-size: 14px;
+  color: #444;
+  margin-top: 6px;
+}
+
+.tree-badges {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.tree-badge {
+  background-color: #4ac0e1;
+  color: white;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 20px;
+}
+
+
+@media (max-width: 1024px) {
+  .tree-cards-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .tree-cards-container {
+    grid-template-columns: 1fr;
+  }
 }

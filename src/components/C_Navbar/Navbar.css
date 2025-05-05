@@ -1,43 +1,94 @@
-.navbar-custom {
-    background-color:var(--color-secondary); /* Fondo oscuro personalizado (tomado del segundo código) */
-    padding: 10px 20px; /* Espaciado extra */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil */
-}
-
-.navbar-custom .navbar-brand {
+.navbar-wrapper {
+    display: flex;
+    justify-content: center;
+    margin: 30px 0;
+  }
+  
+  .navbar-app {
+    background-color: #6c57a0;
+    padding: 12px 30px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1870px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    position: relative;
+    flex-wrap: wrap;
+  }
+  
+  .navbar-logo-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .navbar-logo {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+  }
+  
+  .navbar-title {
+    color: white;
+    font-weight: 600;
+    font-size: 20px;
+  }
+  
+  .navbar-links {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .navbar-links a {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 8px;
+    transition: background 0.2s;
+  }
+  
+  .navbar-links a:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+  
+  .navbar-links .active-link {
+    background-color: #4ac0e1;
+    color: white;
+  }
+  
+  .menu-toggle {
+    display: none;
+    background: none;
+    border: none;
     font-size: 24px;
-    color: #ecf0f1; /* Color claro para el texto */
-    font-weight: bold;
-}
-
-.navbar-custom .navbar-brand img {
-    margin-right: 10px; /* Espacio entre el logo y el texto */
-}
-
-/* Clase personalizada para el logo */
-.navbar-logo {
-    margin-right: 10px; /* Espacio entre el logo y el texto */
-    border-radius: 50%; /* Convertir la imagen en circular */
-    border: 2px solid #ecf0f1; /* Agregar un borde alrededor del logo */
-    width: 40px; /* Ajustar el tamaño */
-    height: 40px; /* Asegurarse que el logo es circular */
-}
-
-.navbar-custom .nav-link {
-    color: #bdc3c7; /* Color de los enlaces */
-    font-size: 18px;
-    padding-right: 15px; /* Espaciado entre enlaces */
-    transition: color 0.3s ease; /* Transición suave */
-}
-
-.navbar-custom .nav-link:hover {
-    color: #ffffff; /* Color al pasar el mouse por encima */
-}
-
-.navbar-custom .navbar-toggler-icon {
-    color: #ecf0f1; /* Color claro para el ícono del menú */
-}
-
-.navbar-custom .navbar-collapse {
-    justify-content: flex-end; /* Alineación a la derecha */
-}
+    color: white;
+    cursor: pointer;
+  }
+  
+  @media (max-width: 768px) {
+    .menu-toggle {
+      display: block;
+      margin-left: auto;
+    }
+  
+    .navbar-links {
+      flex-direction: column;
+      width: 100%;
+      display: none;
+      gap: 10px;
+      margin-top: 20px;
+    }
+  
+    .navbar-links.open {
+      display: flex;
+    }
+  
+    .navbar-app {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+  
